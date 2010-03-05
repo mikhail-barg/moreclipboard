@@ -64,7 +64,7 @@ public class MCContents
 
 	public String[] getElements()
 	{
-		return (String[]) m_list.toArray();
+		return m_list.toArray(new String[m_list.size()]);
 	}
 
 	private void updateView()
