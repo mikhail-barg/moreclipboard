@@ -17,68 +17,80 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * @author MVPI
- *
+ * 
  */
-public class MCPopupDialog extends PopupDialog implements SelectionListener, KeyListener {
-
+public class MCPopupDialog extends PopupDialog implements SelectionListener, KeyListener
+{
 	private List m_listView;
-	
-	public MCPopupDialog(Shell parent) {
-		super(parent,
-				SWT.TOOL,
-				true,
-				false,
-				false,
-				false,
-				false,
-				null,
-				null);
+
+	public MCPopupDialog(Shell parent)
+	{
+		super(parent, SWT.TOOL, true, false, false, false, false, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.dialogs.PopupDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
-	 */
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite)super.createDialogArea(parent);
-		
+	protected Control createDialogArea(Composite parent)
+	{
+		Composite composite = (Composite) super.createDialogArea(parent);
+
 		m_listView = new List(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 		m_listView.addSelectionListener(this);
 		m_listView.addKeyListener(this);
-		m_listView.setItems(MCPlugin.getDefault().getContents().getElements());
+		m_listView.setItems(MCPlugin.getInstance().getContents().getElements());
 		m_listView.select(0);
 		return composite;
 	}
 
-	private void processPasteSelectedElement() {
-		int itemIndex = m_listView.getSelectionIndex(); 
-		if (itemIndex < 0) {
+	private void processPasteSelectedElement()
+	{
+		final int itemIndex = m_listView.getSelectionIndex();
+		if (itemIndex < 0)
+		{
 			return;
 		}
-		MCPlugin.getDefault().getContents().setCurrentElement(itemIndex);
+		
+		MCPlugin.getInstance().getContents().setCurrentElement(itemIndex);
+		
 		this.close();
-		try {
+		
+		try
+		{
 			MCPasteHandler.executePaste();
-		} catch (ExecutionException ex) {
+		}
+		catch (ExecutionException e)
+		{
+			//TODO: do something about the exception..
+			e.printStackTrace();
 		}
 	}
-	
-	public void widgetDefaultSelected(SelectionEvent e) {
-		if (e.widget != m_listView)	{
+
+	@Override
+	public void widgetDefaultSelected(SelectionEvent e)
+	{
+		if (e.widget != m_listView)
+		{
 			return;
 		}
+		
 		processPasteSelectedElement();
 	}
 
-	public void widgetSelected(SelectionEvent e) {
+	@Override
+	public void widgetSelected(SelectionEvent e)
+	{
 	}
 
-	public void keyPressed(KeyEvent e) {
-		if (e.character == SWT.CR) {
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if (e.character == SWT.CR)
+		{
 			processPasteSelectedElement();
 		}
 	}
 
-	public void keyReleased(KeyEvent e) {
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
 	}
 }

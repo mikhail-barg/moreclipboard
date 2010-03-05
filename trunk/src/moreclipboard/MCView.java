@@ -15,174 +15,167 @@ import org.eclipse.ui.part.ViewPart;
 
 /**
  * @author Mikhail Barg
- *
+ * 
  */
-public class MCView extends ViewPart implements SelectionListener {
-	private org.eclipse.swt.widgets.List m_listView;
-	
-	public MCView() {
+public class MCView extends ViewPart implements SelectionListener
+{
+	class RemoveCurrentItemAction extends Action
+	{
+
+		@SuppressWarnings("restriction")
+		RemoveCurrentItemAction()
+		{
+			super(MCPlugin.RemoveCurrentItemAction_text);
+
+			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_rem.gif"); //$NON-NLS-1$
+			if (id != null)
+			{
+				setImageDescriptor(id);
+			}
+			id = WorkbenchImages.getWorkbenchImageDescriptor("/dlcl16/progress_rem.gif"); //$NON-NLS-1$
+			if (id != null)
+			{
+				setDisabledImageDescriptor(id);
+			}
+		}
+
+		@Override
+		public void run()
+		{
+			removeCurrentItem();
+		}
 	}
+
+	class ClearContentsAction extends Action
+	{
+
+		@SuppressWarnings("restriction")
+		public ClearContentsAction()
+		{
+			super(MCPlugin.ClearContentsAction_text);
+
+			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_remall.gif"); //$NON-NLS-1$
+			if (id != null)
+			{
+				setImageDescriptor(id);
+			}
+			id = WorkbenchImages.getWorkbenchImageDescriptor("/dlcl16/progress_remall.gif"); //$NON-NLS-1$
+			if (id != null)
+			{
+				setDisabledImageDescriptor(id);
+			}
+		}
+
+		@Override
+		public void run()
+		{
+			MCPlugin.getInstance().getContents().clear();
+		}
+	}
+	///////////////////////////////////////////////////////////////////////////////////////
 	
+	
+	private org.eclipse.swt.widgets.List m_listView;
+
 	private Action m_removeCurAction;
 	private Action m_removeAllAction;
 
 	@Override
-	public void createPartControl(Composite parent) {
+	public void createPartControl(Composite parent)
+	{
 		m_listView = new org.eclipse.swt.widgets.List(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 		m_listView.addSelectionListener(this);
 		createActions();
 		createContextMenu();
 		initToolBar();
-		
-		MCContents contents = MCPlugin.getDefault().getContents();
-		assert(contents != null);
+
+		MCContents contents = MCPlugin.getInstance().getContents();
+		assert (contents != null);
 		contents.registerView(this);
 	}
 
-
-	private void createActions() {
+	private void createActions()
+	{
 		m_removeCurAction = new RemoveCurrentItemAction();
 		m_removeAllAction = new ClearContentsAction();
 		updateRemoveCurAction();
 		updateRemoveAllAction();
 	}
+	
+	private void createContextMenu()
+	{
+		MenuManager manager = new MenuManager();
+		manager.setRemoveAllWhenShown(true);
+		manager.addMenuListener(new IMenuListener()
+			{
+				public void menuAboutToShow(IMenuManager manager)
+				{
+					manager.add(m_removeCurAction);
+					manager.add(m_removeAllAction);
+				}
+			});
+		m_listView.setMenu(manager.createContextMenu(m_listView));
+	}
 
-	private void updateRemoveCurAction() {
+	private void initToolBar()
+	{
+		IToolBarManager tm = getViewSite().getActionBars().getToolBarManager();
+		tm.add(m_removeCurAction);
+		tm.add(m_removeAllAction);
+	}
+
+	private void updateRemoveCurAction()
+	{
 		m_removeCurAction.setEnabled(m_listView.getSelectionIndex() >= 0);
 	}
 
-	private void updateRemoveAllAction() {
+	private void updateRemoveAllAction()
+	{
 		m_removeCurAction.setEnabled(m_listView.getItemCount() > 0);
 	}
-	
-	
+
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
 	@Override
-	public void setFocus() {
+	public void setFocus()
+	{
 		m_listView.setFocus();
 	}
 
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
-	 */
 	@Override
-	public void dispose() {
-		MCPlugin.getDefault().getContents().removeView(this);
+	public void dispose()
+	{
+		MCPlugin.getInstance().getContents().removeView(this);
 		super.dispose();
 	}
-	
-	public void setElements(String elements[]){
+
+	public void setElements(String elements[])
+	{
 		m_listView.setItems(elements);
 		updateRemoveCurAction();
 		updateRemoveAllAction();
- 	}
-
-
-	public void widgetDefaultSelected(SelectionEvent e) {
-		if (e.widget != m_listView)	{
-			return;
-		}
-		int itemIndex = m_listView.getSelectionIndex(); 
-		if (itemIndex < 0) {
-			return;
-		}
-		MCPlugin.getDefault().getContents().setCurrentElement(itemIndex);
 	}
 
+	@Override
+	public void widgetDefaultSelected(SelectionEvent e)
+	{
+		if (e.widget != m_listView) { return; }
+		int itemIndex = m_listView.getSelectionIndex();
+		if (itemIndex < 0) { return; }
+		MCPlugin.getInstance().getContents().setCurrentElement(itemIndex);
+	}
 
-	public void widgetSelected(SelectionEvent e) {
+	@Override
+	public void widgetSelected(SelectionEvent e)
+	{
 		updateRemoveCurAction();
 	}
-	
-	public void removeCurrentItem()	{
-		int itemIndex = m_listView.getSelectionIndex(); 
-		if (itemIndex < 0) {
-			return;
-		}
-		MCPlugin.getDefault().getContents().removeElement(itemIndex);
-	}
-	
-	class RemoveCurrentItemAction extends Action {
 
-		@SuppressWarnings("restriction")
-		RemoveCurrentItemAction() {
-			super(MCPlugin.RemoveCurrentItemAction_text);
-			
-			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_rem.gif"); //$NON-NLS-1$
-			if (id != null) {
-				setImageDescriptor(id);
-			}
-			id = WorkbenchImages.getWorkbenchImageDescriptor("/dlcl16/progress_rem.gif"); //$NON-NLS-1$
-			if (id != null) {
-				setDisabledImageDescriptor(id);
-			}		
-		}
-		
-		/* (non-Javadoc)
-		 * @see org.eclipse.jface.action.Action#run()
-		 */
-		@Override
-		public void run() {
-			removeCurrentItem();
-		}
-	}
-	
-	class ClearContentsAction extends Action {
-
-		@SuppressWarnings("restriction")
-		public ClearContentsAction() {
-			super(MCPlugin.ClearContentsAction_text);
-			
-			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_remall.gif"); //$NON-NLS-1$
-			if (id != null) {
-				setImageDescriptor(id);
-			}
-			id = WorkbenchImages.getWorkbenchImageDescriptor("/dlcl16/progress_remall.gif"); //$NON-NLS-1$
-			if (id != null) {
-				setDisabledImageDescriptor(id);
-			}		
-		}
-			
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			MCPlugin.getDefault().getContents().clear();
-		}
-	}
-	
-	
-	private void createContextMenu() {
-        MenuManager manager = new MenuManager();
-        manager.setRemoveAllWhenShown(true);
-        manager.addMenuListener(
-        	new IMenuListener() {
-				public void menuAboutToShow(IMenuManager manager) {
-					manager.add(m_removeCurAction);
-					manager.add(m_removeAllAction);
-				}
-        	});
-        m_listView.setMenu(manager.createContextMenu(m_listView));
-    }
-	
-	/*
-	private void fillMenu(IMenuManager manager) {
-		if (m_listView.getSelectionIndex() >= 0)
-		{
-			manager.add(m_removeCurAction);
-		}
-		if (m_listView.getItemCount() > 0)
-		{
-			manager.add(new ClearContentsAction());
-		}
-    }
-    */	
-	
-	private void initToolBar() {
-		IToolBarManager tm = getViewSite().getActionBars().getToolBarManager();
-		tm.add(m_removeCurAction);
-		tm.add(m_removeAllAction);
+	public void removeCurrentItem()
+	{
+		int itemIndex = m_listView.getSelectionIndex();
+		if (itemIndex < 0) { return; }
+		MCPlugin.getInstance().getContents().removeElement(itemIndex);
 	}
 }

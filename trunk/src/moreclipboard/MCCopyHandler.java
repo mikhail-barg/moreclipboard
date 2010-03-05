@@ -9,33 +9,37 @@ import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 
-public class MCCopyHandler extends AbstractHandler {
+public class MCCopyHandler extends AbstractHandler
+{
 
-	/**
-	 * The constructor.
-	 */
-	public MCCopyHandler() {
-	}
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException
+	{
+		// System.out.println(event.getCommand().getId());
 
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		//System.out.println(event.getCommand().getId());
-		
-		//execute default copy command
+		// execute default copy command
 		Object result = null;
-		IHandlerService handlerService = (IHandlerService)PlatformUI.getWorkbench().getService(IHandlerService.class);
-		try {
+		final IHandlerService handlerService = (IHandlerService) PlatformUI.getWorkbench().getService(IHandlerService.class);
+		try
+		{
 			result = handlerService.executeCommand("org.eclipse.ui.edit.copy", null);
-		} catch (NotDefinedException e){
-			//System.out.println(e);
-		} catch (NotEnabledException e){
-			//System.out.println(e);
-		} catch (NotHandledException e){
-			//System.out.println(e);
 		}
-		
+		catch (NotDefinedException e)
+		{
+			throw new ExecutionException("Failed to perform copy command", e);
+		}
+		catch (NotEnabledException e)
+		{
+			throw new ExecutionException("Failed to perform copy command", e);
+		}
+		catch (NotHandledException e)
+		{
+			throw new ExecutionException("Failed to perform copy command", e);
+		}
+
 		// copy contents from clipboard
-		MCPlugin.getDefault().getContents().getFromClipboard();
-		
+		MCPlugin.getInstance().getContents().getFromClipboard();
+
 		return result;
 	}
 
