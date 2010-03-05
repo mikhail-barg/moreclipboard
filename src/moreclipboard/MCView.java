@@ -46,7 +46,7 @@ public class MCView extends ViewPart implements SelectionListener
 		}
 	}
 
-	class ClearContentsAction extends Action
+	static class ClearContentsAction extends Action
 	{
 
 		@SuppressWarnings("restriction")
