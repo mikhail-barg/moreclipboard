@@ -11,50 +11,60 @@ import org.eclipse.ui.handlers.IHandlerService;
 
 /**
  * Handler extends AbstractHandler, an IHandler base class.
+ * 
  * @see org.eclipse.core.commands.IHandler
  * @see org.eclipse.core.commands.AbstractHandler
  */
-public class MCPasteHandler extends AbstractHandler {
+public class MCPasteHandler extends AbstractHandler
+{
 	/**
 	 * The constructor.
 	 */
 	private MCPopupDialog m_popupDialog;
-	
-	public MCPasteHandler() {
-	}
-	
-	public static Object executePaste() throws ExecutionException {
+
+	public static Object executePaste() throws ExecutionException
+	{
 		// move contents to clipboard
-		MCPlugin.getDefault().getContents().setToClipboard();
-		
+		MCPlugin.getInstance().getContents().setToClipboard();
+
 		// run regular paste command
 		Object result = null;
-		IHandlerService handlerService = (IHandlerService)PlatformUI.getWorkbench().getService(IHandlerService.class);
-		try {
+		final IHandlerService handlerService = (IHandlerService) PlatformUI.getWorkbench().getService(IHandlerService.class);
+		try
+		{
 			result = handlerService.executeCommand("org.eclipse.ui.edit.paste", null);
-		} catch (NotDefinedException e){
-			//System.out.println(e);
-		} catch (NotEnabledException e){
-			//System.out.println(e);
-		} catch (NotHandledException e){
-			//System.out.println(e);
+		}
+		catch (NotDefinedException e)
+		{
+			throw new ExecutionException("Failed to perform paste command", e);
+		}
+		catch (NotEnabledException e)
+		{
+			throw new ExecutionException("Failed to perform paste command", e);
+		}
+		catch (NotHandledException e)
+		{
+			throw new ExecutionException("Failed to perform paste command", e);
 		}
 		return result;
 	}
 
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		//System.out.println(event.getCommand().getId());
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException
+	{
+		// System.out.println(event.getCommand().getId());
 
-		//return executePaste();
-		
-		if (m_popupDialog != null) {
+		// return executePaste();
+
+		if (m_popupDialog != null)
+		{
 			m_popupDialog.close();
 			m_popupDialog = null;
 		}
-		
+
 		m_popupDialog = new MCPopupDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 		m_popupDialog.open();
-		
+
 		return null;
 	}
 }
