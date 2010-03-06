@@ -17,7 +17,7 @@ import org.eclipse.ui.part.ViewPart;
  * @author Mikhail Barg
  * 
  */
-public class MCView extends ViewPart implements SelectionListener
+public class View extends ViewPart implements SelectionListener
 {
 	class RemoveCurrentItemAction extends Action
 	{
@@ -25,7 +25,7 @@ public class MCView extends ViewPart implements SelectionListener
 		@SuppressWarnings("restriction")
 		RemoveCurrentItemAction()
 		{
-			super(MCPlugin.RemoveCurrentItemAction_text);
+			super(Plugin.RemoveCurrentItemAction_text);
 
 			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_rem.gif"); //$NON-NLS-1$
 			if (id != null)
@@ -52,7 +52,7 @@ public class MCView extends ViewPart implements SelectionListener
 		@SuppressWarnings("restriction")
 		public ClearContentsAction()
 		{
-			super(MCPlugin.ClearContentsAction_text);
+			super(Plugin.ClearContentsAction_text);
 
 			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_remall.gif"); //$NON-NLS-1$
 			if (id != null)
@@ -69,7 +69,7 @@ public class MCView extends ViewPart implements SelectionListener
 		@Override
 		public void run()
 		{
-			MCPlugin.getInstance().getContents().clear();
+			Plugin.getInstance().getContents().clear();
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ public class MCView extends ViewPart implements SelectionListener
 		createContextMenu();
 		initToolBar();
 
-		MCContents contents = MCPlugin.getInstance().getContents();
+		Contents contents = Plugin.getInstance().getContents();
 		assert (contents != null);
 		contents.registerView(this);
 	}
@@ -146,7 +146,7 @@ public class MCView extends ViewPart implements SelectionListener
 	@Override
 	public void dispose()
 	{
-		MCPlugin.getInstance().getContents().removeView(this);
+		Plugin.getInstance().getContents().removeView(this);
 		super.dispose();
 	}
 
@@ -163,7 +163,7 @@ public class MCView extends ViewPart implements SelectionListener
 		if (e.widget != m_listView) { return; }
 		int itemIndex = m_listView.getSelectionIndex();
 		if (itemIndex < 0) { return; }
-		MCPlugin.getInstance().getContents().setCurrentElement(itemIndex);
+		Plugin.getInstance().getContents().setCurrentElement(itemIndex);
 	}
 
 	@Override
@@ -176,6 +176,6 @@ public class MCView extends ViewPart implements SelectionListener
 	{
 		int itemIndex = m_listView.getSelectionIndex();
 		if (itemIndex < 0) { return; }
-		MCPlugin.getInstance().getContents().removeElement(itemIndex);
+		Plugin.getInstance().getContents().removeElement(itemIndex);
 	}
 }

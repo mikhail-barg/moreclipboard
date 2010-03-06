@@ -6,7 +6,7 @@
       <view
             allowMultiple="false"
             category="MoreClipboard.Category"
-            class="moreclipboard.MCView"
+            class="moreclipboard.View"
             icon="icons/mc.ico"
             id="MoreClipboard.view"
             name="%view.name.0"
@@ -38,15 +38,15 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="moreclipboard.MCPasteHandler"
+            class="moreclipboard.PasteHandler"
             commandId="MoreClipboard.commands.morePaste">
       </handler>
       <handler
-            class="moreclipboard.MCCopyHandler"
+            class="moreclipboard.CopyHandler"
             commandId="MoreClipboard.commands.moreCopy">
       </handler>
       <handler
-            class="moreclipboard.MCCutHandler"
+            class="moreclipboard.CutHandler"
             commandId="MoreClipboard.commands.moreCut">
       </handler>
    </extension>

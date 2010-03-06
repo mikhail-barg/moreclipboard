@@ -15,17 +15,17 @@ import org.eclipse.ui.handlers.IHandlerService;
  * @see org.eclipse.core.commands.IHandler
  * @see org.eclipse.core.commands.AbstractHandler
  */
-public class MCPasteHandler extends AbstractHandler
+public class PasteHandler extends AbstractHandler
 {
 	/**
 	 * The constructor.
 	 */
-	private MCPopupDialog m_popupDialog;
+	private PopupDialog m_popupDialog;
 
 	public static Object executePaste() throws ExecutionException
 	{
 		// move contents to clipboard
-		MCPlugin.getInstance().getContents().setToClipboard();
+		Plugin.getInstance().getContents().setToClipboard();
 
 		// run regular paste command
 		Object result = null;
@@ -62,7 +62,7 @@ public class MCPasteHandler extends AbstractHandler
 			m_popupDialog = null;
 		}
 
-		m_popupDialog = new MCPopupDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+		m_popupDialog = new PopupDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 		m_popupDialog.open();
 
 		return null;

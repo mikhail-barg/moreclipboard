@@ -11,16 +11,16 @@ import org.eclipse.swt.widgets.Display;
  * @author Mikhail Barg
  * 
  */
-public class MCContents
+public class Contents
 {
 
 	private final LinkedList<String> m_list = new LinkedList<String>();
 	private Clipboard m_clipboard;
-	private MCView m_view;
+	private View m_view;
 
 	public static final int MAX_ELEMENTS = 16;
 
-	public MCContents()
+	public Contents()
 	{
 		m_clipboard = new Clipboard(Display.getCurrent());
 	}
@@ -45,7 +45,7 @@ public class MCContents
 		updateView();
 	}
 
-	public void registerView(MCView view)
+	public void registerView(View view)
 	{
 		assert (view != null);
 		assert (m_view == null);
@@ -53,7 +53,7 @@ public class MCContents
 		updateView();
 	}
 
-	public void removeView(MCView view)
+	public void removeView(View view)
 	{
 		assert (view != null);
 		if (m_view == view)
