@@ -7,19 +7,19 @@ import org.osgi.framework.BundleContext;
  * @author Mikhail Barg
  * 
  */
-public class MCPlugin extends AbstractUIPlugin
+public class Plugin extends AbstractUIPlugin
 {
 
 	/**
 	 * Default instance of the receiver
 	 */
-	private static MCPlugin INSTANCE;
-	private MCContents m_contents;
+	private static Plugin INSTANCE;
+	private Contents m_contents;
 
 	/**
 	 * Creates the MCPlugin and caches its default instance
 	 */
-	public MCPlugin()
+	public Plugin()
 	{
 		if (INSTANCE == null)
 		{
@@ -36,12 +36,12 @@ public class MCPlugin extends AbstractUIPlugin
 	 * 
 	 * @return the default instance
 	 */
-	static public MCPlugin getInstance()
+	static public Plugin getInstance()
 	{
 		return INSTANCE;
 	}
 
-	public MCContents getContents()
+	public Contents getContents()
 	{
 		return m_contents;
 	}
@@ -54,7 +54,7 @@ public class MCPlugin extends AbstractUIPlugin
 	{
 		super.start(context);
 
-		m_contents = new MCContents();
+		m_contents = new Contents();
 		assert (m_contents != null);
 
 		// m_contents.addString("AAAA!");

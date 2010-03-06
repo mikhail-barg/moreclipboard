@@ -9,7 +9,7 @@ import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 
-public class MCCutHandler extends AbstractHandler
+public class CutHandler extends AbstractHandler
 {
 
 	@Override
@@ -38,7 +38,7 @@ public class MCCutHandler extends AbstractHandler
 		}
 
 		// copy contents from clipboard
-		MCPlugin.getInstance().getContents().getFromClipboard();
+		Plugin.getInstance().getContents().getFromClipboard();
 
 		return result;
 	}

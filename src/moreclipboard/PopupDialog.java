@@ -4,7 +4,6 @@
 package moreclipboard;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -19,11 +18,11 @@ import org.eclipse.swt.widgets.Shell;
  * @author MVPI
  * 
  */
-public class MCPopupDialog extends PopupDialog implements SelectionListener, KeyListener
+public class PopupDialog extends org.eclipse.jface.dialogs.PopupDialog implements SelectionListener, KeyListener
 {
 	private List m_listView;
 
-	public MCPopupDialog(Shell parent)
+	public PopupDialog(Shell parent)
 	{
 		super(parent, SWT.TOOL, true, false, false, false, false, null, null);
 	}
@@ -36,7 +35,7 @@ public class MCPopupDialog extends PopupDialog implements SelectionListener, Key
 		m_listView = new List(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 		m_listView.addSelectionListener(this);
 		m_listView.addKeyListener(this);
-		m_listView.setItems(MCPlugin.getInstance().getContents().getElements());
+		m_listView.setItems(Plugin.getInstance().getContents().getElements());
 		m_listView.select(0);
 		return composite;
 	}
@@ -49,13 +48,13 @@ public class MCPopupDialog extends PopupDialog implements SelectionListener, Key
 			return;
 		}
 		
-		MCPlugin.getInstance().getContents().setCurrentElement(itemIndex);
+		Plugin.getInstance().getContents().setCurrentElement(itemIndex);
 		
 		this.close();
 		
 		try
 		{
-			MCPasteHandler.executePaste();
+			PasteHandler.executePaste();
 		}
 		catch (ExecutionException e)
 		{
