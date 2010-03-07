@@ -6,6 +6,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 
@@ -28,7 +29,7 @@ public class PasteHandler extends AbstractHandler
 		}
 
 		//create and open a new dialog
-		m_popupDialog = new PopupDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+		m_popupDialog = new PopupDialog(Display.getCurrent().getActiveShell());
 		m_popupDialog.open();
 
 		return null;
