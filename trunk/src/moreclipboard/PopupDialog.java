@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * @author MVPI
+ * The main part of the plugin - the popup dialog showing the contents of the plugin and allowing pasting 
  * 
  */
 public class PopupDialog extends org.eclipse.jface.dialogs.PopupDialog implements SelectionListener, KeyListener
@@ -30,14 +30,14 @@ public class PopupDialog extends org.eclipse.jface.dialogs.PopupDialog implement
 	@Override
 	protected Control createDialogArea(Composite parent)
 	{
-		Composite composite = (Composite) super.createDialogArea(parent);
+		final Composite clientArea = (Composite) super.createDialogArea(parent);
 
-		m_listView = new List(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
+		m_listView = new List(clientArea, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 		m_listView.addSelectionListener(this);
 		m_listView.addKeyListener(this);
 		m_listView.setItems(Plugin.getInstance().getContents().getElements());
 		m_listView.select(0);
-		return composite;
+		return clientArea;
 	}
 
 	private void processPasteSelectedElement()
@@ -82,14 +82,14 @@ public class PopupDialog extends org.eclipse.jface.dialogs.PopupDialog implement
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-		if (e.character == SWT.CR)
-		{
-			processPasteSelectedElement();
-		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
+		if (e.character == SWT.CR)
+		{
+			processPasteSelectedElement();
+		}
 	}
 }
