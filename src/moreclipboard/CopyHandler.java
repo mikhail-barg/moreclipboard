@@ -9,20 +9,24 @@ import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 
+/**
+ * The handler for a TransparentCopy command
+ */
 public class CopyHandler extends AbstractHandler
 {
-
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
 	{
-		// System.out.println(event.getCommand().getId());
-
-		// execute default copy command
-		Object result = null;
-		final IHandlerService handlerService = (IHandlerService) PlatformUI.getWorkbench().getService(IHandlerService.class);
 		try
 		{
-			result = handlerService.executeCommand("org.eclipse.ui.edit.copy", null);
+			// execute default copy command
+			final IHandlerService handlerService = (IHandlerService) PlatformUI.getWorkbench().getService(IHandlerService.class);
+			final Object result = handlerService.executeCommand("org.eclipse.ui.edit.copy", null);
+
+			// copy contents from clipboard to the Contents instance 
+			Plugin.getInstance().getContents().getFromClipboard();
+
+			return result;
 		}
 		catch (NotDefinedException e)
 		{
@@ -36,11 +40,6 @@ public class CopyHandler extends AbstractHandler
 		{
 			throw new ExecutionException("Failed to perform copy command", e);
 		}
-
-		// copy contents from clipboard
-		Plugin.getInstance().getContents().getFromClipboard();
-
-		return result;
 	}
 
 }
