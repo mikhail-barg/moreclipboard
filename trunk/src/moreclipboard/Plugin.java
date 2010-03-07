@@ -4,33 +4,21 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
+ * The main class of the plugin.
+ * 
  * @author Mikhail Barg
  * 
  */
 public class Plugin extends AbstractUIPlugin
 {
+	//TODO: put strings to bundle
+	public static final String ClearContentsAction_text = "Remove all";
+	public static final String RemoveCurrentItemAction_text = "Remove current";
 
-	/**
-	 * Default instance of the receiver
-	 */
+	
+	/** Singleton instance */
 	private static Plugin INSTANCE;
-	private Contents m_contents;
-
-	/**
-	 * Creates the MCPlugin and caches its default instance
-	 */
-	public Plugin()
-	{
-		if (INSTANCE == null)
-		{
-			INSTANCE = this;
-		}
-		else
-		{
-			assert (false);
-		}
-	}
-
+	
 	/**
 	 * Gets the plugin singleton.
 	 * 
@@ -40,26 +28,40 @@ public class Plugin extends AbstractUIPlugin
 	{
 		return INSTANCE;
 	}
+	
+	/**
+	 * Creates the Plugin singleton
+	 */
+	public Plugin()
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = this;
+		}
+	}
 
+	/** The instance of the Contents to store the clipboard data */
+	private Contents m_contents;
+	
+	/**
+	 * @return current MoreClipboard contents
+	 */
 	public Contents getContents()
 	{
 		return m_contents;
 	}
 
-	public static final String ClearContentsAction_text = "Remove all";
-	public static final String RemoveCurrentItemAction_text = "Remove current";
-
 	@Override
 	public void start(BundleContext context) throws Exception
 	{
 		super.start(context);
-
+		
+		if (m_contents != null)
+		{
+			throw new IllegalStateException("Attempt to start the plugin second time!");
+		}
+		
 		m_contents = new Contents();
-		assert (m_contents != null);
-
-		// m_contents.addString("AAAA!");
-		// m_contents.addString("BBBB!");
-		// m_contents.addString("ccc!");
 	}
 
 	@Override
