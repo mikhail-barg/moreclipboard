@@ -14,14 +14,14 @@ import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.part.ViewPart;
 
 /**
- * @author Mikhail Barg
+ * A clipboard contents View
  * 
  */
-public class View extends ViewPart implements SelectionListener
+public class ContentsView extends ViewPart implements SelectionListener
 {
+	////////////////////////////////////////////////////////////////////
 	class RemoveCurrentItemAction extends Action
 	{
-
 		@SuppressWarnings("restriction")
 		RemoveCurrentItemAction()
 		{
@@ -46,6 +46,7 @@ public class View extends ViewPart implements SelectionListener
 		}
 	}
 
+	////////////////////////////////////////////////////////////////////	
 	static class ClearContentsAction extends Action
 	{
 
@@ -76,7 +77,6 @@ public class View extends ViewPart implements SelectionListener
 	
 	
 	private org.eclipse.swt.widgets.List m_listView;
-
 	private Action m_removeCurAction;
 	private Action m_removeAllAction;
 
@@ -90,7 +90,6 @@ public class View extends ViewPart implements SelectionListener
 		initToolBar();
 
 		Contents contents = Plugin.getInstance().getContents();
-		assert (contents != null);
 		contents.registerView(this);
 	}
 
@@ -108,6 +107,7 @@ public class View extends ViewPart implements SelectionListener
 		manager.setRemoveAllWhenShown(true);
 		manager.addMenuListener(new IMenuListener()
 			{
+				@Override
 				public void menuAboutToShow(IMenuManager manager)
 				{
 					manager.add(m_removeCurAction);
@@ -160,9 +160,16 @@ public class View extends ViewPart implements SelectionListener
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e)
 	{
-		if (e.widget != m_listView) { return; }
-		int itemIndex = m_listView.getSelectionIndex();
-		if (itemIndex < 0) { return; }
+		if (e.widget != m_listView)
+		{
+			return;
+		}
+		
+		final int itemIndex = m_listView.getSelectionIndex();
+		if (itemIndex < 0)
+		{
+			return;
+		}
 		Plugin.getInstance().getContents().setCurrentElement(itemIndex);
 	}
 
@@ -174,8 +181,11 @@ public class View extends ViewPart implements SelectionListener
 
 	public void removeCurrentItem()
 	{
-		int itemIndex = m_listView.getSelectionIndex();
-		if (itemIndex < 0) { return; }
+		final int itemIndex = m_listView.getSelectionIndex();
+		if (itemIndex < 0)
+		{
+			return;
+		}
 		Plugin.getInstance().getContents().removeElement(itemIndex);
 	}
 }

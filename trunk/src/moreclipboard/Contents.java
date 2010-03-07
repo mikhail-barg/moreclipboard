@@ -30,7 +30,7 @@ public class Contents
 	private Clipboard m_clipboard;
 	
 	/** link to the View that is created for plugin*/
-	private View m_view;
+	private ContentsView m_view;
 
 	
 	/**
@@ -143,7 +143,7 @@ public class Contents
 	 * 
 	 * @param view a View to be linked
 	 */
-	public void registerView(View view)
+	public void registerView(ContentsView view)
 	{
 		if (view == null)
 		{
@@ -164,7 +164,7 @@ public class Contents
 	 * 
 	 * @param view should be the View that was previously assigned to this contents
 	 */
-	public void removeView(View view)
+	public void removeView(ContentsView view)
 	{
 		if (view == null)
 		{
