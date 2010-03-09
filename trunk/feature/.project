@@ -3,6 +3,7 @@
 	<name>moreclipboard-feature</name>
 	<comment></comment>
 	<projects>
+		<project>moreclipboard</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

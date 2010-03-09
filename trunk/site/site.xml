@@ -3,9 +3,7 @@
    <description name="MoreClipboard update site">
       The MoreClipboard plugin update site
    </description>
-   <feature url="features/moreclipboard.feature_1.0.0.jar" id="moreclipboard.feature" version="1.0.0">
-      <category name="moreclipboard.category"/>
-   </feature>
+   <feature url="features/moreclipboard.feature_1.0.0.jar" id="moreclipboard.feature" version="1.0.0"/>
    <category-def name="moreclipboard.category" label="MoreClipboard">
       <description>
          More Clipboard keeps track of the latest entries copied/cut into clipboard buffer and allows quick pasting from the popup list by pressing a hotkey.

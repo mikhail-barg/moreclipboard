@@ -3,6 +3,7 @@
 	<name>moreclipboard-site</name>
 	<comment></comment>
 	<projects>
+		<project>moreclipboard-feature</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
