@@ -3,7 +3,7 @@
    <description name="More Clipboard update site" url="http://moreclipboard.sourceforge.net/updates">
       The More Clipboard plugin update site
    </description>
-   <feature url="features/moreclipboard.feature_1.1.0.jar" id="moreclipboard.feature" version="1.1.0">
+   <feature url="http://downloads.sourceforge.net/moreclipboard/moreclipboard.feature_1.1.0.jar" id="moreclipboard.feature" version="1.1.0">
       <category name="moreclipboard.category"/>
    </feature>
    <category-def name="moreclipboard.category" label="More Clipboard">
@@ -11,4 +11,8 @@
          More Clipboard keeps track of the latest entries copied/cut into clipboard buffer and allows quick pasting from the popup list by pressing a hotkey.
       </description>
    </category-def>
+   
+   <archive path="plugins/moreclipboard_1.1.0.jar" 
+   		url="http://downloads.sourceforge.net/moreclipboard/moreclipboard_1.1.0.jar"/>
+
 </site>
