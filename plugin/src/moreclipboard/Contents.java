@@ -26,37 +26,10 @@ public class Contents
 	/** the content itself */
 	private final LinkedList<String> m_list = new LinkedList<String>();
 	
-	/** instance of a system clipboard to be used */
-	private Clipboard m_clipboard;
-	
 	/** link to the View that is created for plugin*/
 	private ContentsView m_view;
 
 	
-	/**
-	 * Default constructor.
-	 * <p>Initializes the system Clipboard. Therefore the instance should be explicitly disposed. 
-	 * 
-	 * @see #dispose()
-	 * @see org.eclipse.swt.dnd.Clipboard
-	 */
-	public Contents()
-	{
-		m_clipboard = new Clipboard(Display.getCurrent());
-	}
-
-	/**
-	 * Releases the system resources allocated in constructor. 
-	 */
-	public void dispose()
-	{
-		if (m_clipboard != null)
-		{
-			m_clipboard.dispose();
-			m_clipboard = null;
-		}
-	}
-
 	/**
 	 * Adds new string to contents. If the contents size exceeds the maximal possible size, last elements got removed
 	 * 
@@ -199,11 +172,15 @@ public class Contents
 	 */
 	public void getFromClipboard()
 	{
-		String string = (String) m_clipboard.getContents(TextTransfer.getInstance());
+		final Clipboard clipboard = new Clipboard(Display.getCurrent());
+		
+		final String string = (String) clipboard.getContents(TextTransfer.getInstance());
 		if (string != null)
 		{
 			addString(string);
 		}
+		
+		clipboard.dispose();
 	}
 
 	
@@ -218,7 +195,11 @@ public class Contents
 		{
 			return;
 		}
+
+		final Clipboard clipboard = new Clipboard(Display.getCurrent());
 		
-		m_clipboard.setContents(new Object[]{ m_list.get(0) }, new Transfer[]{ TextTransfer.getInstance() });
+		clipboard.setContents(new Object[]{ m_list.get(0) }, new Transfer[]{ TextTransfer.getInstance() });
+		
+		clipboard.dispose();
 	}
 }

@@ -63,15 +63,4 @@ public class Plugin extends AbstractUIPlugin
 		
 		m_contents = new Contents();
 	}
-
-	@Override
-	public void stop(BundleContext context) throws Exception
-	{
-		if (m_contents != null)
-		{
-			m_contents.dispose();
-			m_contents = null;
-		}
-		super.stop(context);
-	}
 }
