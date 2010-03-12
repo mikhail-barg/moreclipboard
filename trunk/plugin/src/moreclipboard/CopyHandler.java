@@ -28,11 +28,14 @@ public class CopyHandler extends AbstractHandler
 
 			return result;
 		}
-		catch (NotDefinedException e)
-		{
-			throw new ExecutionException("Failed to perform copy command", e);
-		}
 		catch (NotEnabledException e)
+		{
+			//The command is not enabled
+			//might happen when there's no selection.
+			// so we would not do anything
+			return null;
+		}
+		catch (NotDefinedException e)
 		{
 			throw new ExecutionException("Failed to perform copy command", e);
 		}
