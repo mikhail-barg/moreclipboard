@@ -18,11 +18,11 @@ import org.eclipse.swt.widgets.Shell;
  * The main part of the plugin - the popup dialog showing the contents of the plugin and allowing pasting 
  * 
  */
-public class PopupDialog extends org.eclipse.jface.dialogs.PopupDialog implements SelectionListener, KeyListener
+public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog implements SelectionListener, KeyListener
 {
 	private List m_listView;
 
-	public PopupDialog(Shell parent)
+	public PastePopupDialog(Shell parent)
 	{
 		super(parent, SWT.TOOL, true, false, false, false, false, null, null);
 	}

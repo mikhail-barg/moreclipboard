@@ -16,7 +16,7 @@ import org.eclipse.ui.handlers.IHandlerService;
 public class PasteHandler extends AbstractHandler
 {
 	/** The instance of the dialog shown*/
-	private PopupDialog m_popupDialog;
+	private PastePopupDialog m_popupDialog;
 	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
@@ -29,7 +29,7 @@ public class PasteHandler extends AbstractHandler
 		}
 
 		//create and open a new dialog
-		m_popupDialog = new PopupDialog(Display.getCurrent().getActiveShell());
+		m_popupDialog = new PastePopupDialog(Display.getCurrent().getActiveShell());
 		m_popupDialog.open();
 
 		return null;
