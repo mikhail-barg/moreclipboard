@@ -5,12 +5,10 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -22,21 +20,12 @@ public class ContentsView extends ViewPart implements SelectionListener
 	////////////////////////////////////////////////////////////////////
 	class RemoveCurrentItemAction extends Action
 	{
-		@SuppressWarnings("restriction")
 		RemoveCurrentItemAction()
 		{
 			super(Plugin.RemoveCurrentItemAction_text);
 
-			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_rem.gif"); //$NON-NLS-1$
-			if (id != null)
-			{
-				setImageDescriptor(id);
-			}
-			id = WorkbenchImages.getWorkbenchImageDescriptor("/dlcl16/progress_rem.gif"); //$NON-NLS-1$
-			if (id != null)
-			{
-				setDisabledImageDescriptor(id);
-			}
+			setImageDescriptor(Plugin.getImage("/icons/enabl/rem.gif"));
+			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/rem.gif"));
 		}
 
 		@Override
@@ -49,22 +38,12 @@ public class ContentsView extends ViewPart implements SelectionListener
 	////////////////////////////////////////////////////////////////////	
 	static class ClearContentsAction extends Action
 	{
-
-		@SuppressWarnings("restriction")
 		public ClearContentsAction()
 		{
 			super(Plugin.ClearContentsAction_text);
 
-			ImageDescriptor id = WorkbenchImages.getWorkbenchImageDescriptor("/elcl16/progress_remall.gif"); //$NON-NLS-1$
-			if (id != null)
-			{
-				setImageDescriptor(id);
-			}
-			id = WorkbenchImages.getWorkbenchImageDescriptor("/dlcl16/progress_remall.gif"); //$NON-NLS-1$
-			if (id != null)
-			{
-				setDisabledImageDescriptor(id);
-			}
+			setImageDescriptor(Plugin.getImage("/icons/enabl/remall.gif"));
+			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/remall.gif"));
 		}
 
 		@Override

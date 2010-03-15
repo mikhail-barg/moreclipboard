@@ -1,5 +1,8 @@
 package moreclipboard;
 
+import java.net.URL;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -27,6 +30,27 @@ public class Plugin extends AbstractUIPlugin
 	static public Plugin getInstance()
 	{
 		return INSTANCE;
+	}
+	
+	/**
+	 * Returns an imageDescriptor for given image path
+	 * @param path
+	 * @return
+	 * @since 1.1
+	 */
+	public static ImageDescriptor getImage(String path)
+	{
+		URL url = null;
+		
+		try 
+		{
+			url = getInstance().getBundle().getEntry(path);
+	    }
+		catch (IllegalStateException e)
+		{
+			e.printStackTrace();
+	    }
+	    return ImageDescriptor.createFromURL(url);
 	}
 	
 	/**
