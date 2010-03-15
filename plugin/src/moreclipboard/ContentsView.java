@@ -22,10 +22,10 @@ public class ContentsView extends ViewPart implements SelectionListener
 	{
 		RemoveCurrentItemAction()
 		{
-			super(Plugin.RemoveCurrentItemAction_text);
+			super(Messages.ContentsView_RemoveCurrentActionName);
 
-			setImageDescriptor(Plugin.getImage("/icons/enabl/rem.gif"));
-			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/rem.gif"));
+			setImageDescriptor(Plugin.getImage("/icons/enabl/rem.gif")); //$NON-NLS-1$
+			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/rem.gif")); //$NON-NLS-1$
 		}
 
 		@Override
@@ -40,10 +40,10 @@ public class ContentsView extends ViewPart implements SelectionListener
 	{
 		public ClearContentsAction()
 		{
-			super(Plugin.ClearContentsAction_text);
+			super(Messages.ContentsView_RemoveAllActionName);
 
-			setImageDescriptor(Plugin.getImage("/icons/enabl/remall.gif"));
-			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/remall.gif"));
+			setImageDescriptor(Plugin.getImage("/icons/enabl/remall.gif")); //$NON-NLS-1$
+			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/remall.gif")); //$NON-NLS-1$
 		}
 
 		@Override

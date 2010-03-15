@@ -14,11 +14,6 @@ import org.osgi.framework.BundleContext;
  */
 public class Plugin extends AbstractUIPlugin
 {
-	//TODO: put strings to bundle
-	public static final String ClearContentsAction_text = "Remove all";
-	public static final String RemoveCurrentItemAction_text = "Remove current";
-
-	
 	/** Singleton instance */
 	private static Plugin INSTANCE;
 	
