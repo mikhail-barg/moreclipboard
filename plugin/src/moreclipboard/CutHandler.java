@@ -19,6 +19,9 @@ public class CutHandler extends AbstractHandler
 	{
 		try
 		{
+			// copy contents from clipboard - in case there was something else in the clipboard, e.g. copied from the system buffer.
+			Plugin.getInstance().getContents().getFromClipboard();
+			
 			// execute default cut command
 			final IHandlerService handlerService = (IHandlerService) PlatformUI.getWorkbench().getService(IHandlerService.class);
 			final Object result = handlerService.executeCommand("org.eclipse.ui.edit.cut", null);

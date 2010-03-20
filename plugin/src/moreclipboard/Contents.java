@@ -167,6 +167,7 @@ public class Contents
 
 	/**
 	 * Retrieves the text from the system clipboard and puts it as a first element in the list
+	 * but only in the case the internal list is empty, or the clipboard contents does not equals to the first item in the list.
 	 * 
 	 * <p> If clipboard does not contain the text data, does not change the current contents. 
 	 */
@@ -177,7 +178,11 @@ public class Contents
 		final String string = (String) clipboard.getContents(TextTransfer.getInstance());
 		if (string != null)
 		{
-			addString(string);
+			//does not copy same string twice
+			if (m_list.isEmpty() || !m_list.getFirst().equals(string))
+			{
+				addString(string);
+			}
 		}
 		
 		clipboard.dispose();
@@ -198,7 +203,7 @@ public class Contents
 
 		final Clipboard clipboard = new Clipboard(Display.getCurrent());
 		
-		clipboard.setContents(new Object[]{ m_list.get(0) }, new Transfer[]{ TextTransfer.getInstance() });
+		clipboard.setContents(new Object[]{ m_list.getFirst() }, new Transfer[]{ TextTransfer.getInstance() });
 		
 		clipboard.dispose();
 	}

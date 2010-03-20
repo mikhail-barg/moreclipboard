@@ -28,6 +28,9 @@ public class PasteHandler extends AbstractHandler
 			m_popupDialog = null;
 		}
 
+		// copy contents from clipboard - in case there was something else in the clipboard, e.g. copied from the system buffer.
+		Plugin.getInstance().getContents().getFromClipboard();
+		
 		//create and open a new dialog
 		m_popupDialog = new PastePopupDialog(Display.getCurrent().getActiveShell());
 		m_popupDialog.open();
