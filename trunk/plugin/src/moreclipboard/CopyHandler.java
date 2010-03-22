@@ -38,11 +38,14 @@ public class CopyHandler extends AbstractHandler
 			// so we would not do anything
 			return null;
 		}
-		catch (NotDefinedException e)
-		{
-			throw new ExecutionException("Failed to perform copy command", e);
-		}
 		catch (NotHandledException e)
+		{
+			//The command handler is not deined
+			//happens in javadoc view for example
+			// so we would not do anything
+			return null;
+		}
+		catch (NotDefinedException e)
 		{
 			throw new ExecutionException("Failed to perform copy command", e);
 		}
