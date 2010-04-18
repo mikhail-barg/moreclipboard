@@ -82,14 +82,16 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog impl
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
+		//handling should be in the keyPressed, not keyReleased, to prevent
+		// using "Return" key to be handled as a search key in list, which cause a bug..
+		if (e.keyCode == SWT.CR || e.keyCode == SWT.LF)
+		{
+			processPasteSelectedElement();
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if (e.character == SWT.CR)
-		{
-			processPasteSelectedElement();
-		}
 	}
 }
