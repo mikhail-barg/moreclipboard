@@ -23,6 +23,12 @@ public class Contents
 	/** maximal number of elements in the plugin*/
 	private static final int MAX_ELEMENTS = 16;
 	
+	/** maximal number of characters displayed in the pop-up dialog*/
+	private static final int MAX_DISPLAYED_STRING_LENGTH = 120;
+	
+	/** maximal number of characters displayed in the pop-up dialog*/
+	private static final String LONG_STRING_TERMINATION = "[...]";	
+	
 	/** the content itself */
 	private final LinkedList<String> m_list = new LinkedList<String>();
 	
@@ -106,7 +112,24 @@ public class Contents
 	 */
 	public String[] getElements()
 	{
-		return m_list.toArray(new String[m_list.size()]);
+		//return m_list.toArray(new String[m_list.size()]);
+		
+		final String[] result = new String[m_list.size()];
+		
+		int i = 0;
+		for (String s : m_list)
+		{
+			if (s.length() <= MAX_DISPLAYED_STRING_LENGTH)
+			{
+				result[i] = s;
+			}
+			else
+			{
+				result[i] = s.substring(0, MAX_DISPLAYED_STRING_LENGTH) + LONG_STRING_TERMINATION;
+			}
+			++i;
+		}
+		return result;
 	}
 
 	/**
