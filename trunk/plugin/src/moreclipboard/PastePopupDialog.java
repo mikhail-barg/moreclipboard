@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * The main part of the plugin - the popup dialog showing the contents of the plugin and allowing pasting 
+ * The main part of the plugin - the pop-up dialog showing the contents of the plugin and allowing pasting 
  * 
  */
 public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog implements SelectionListener, KeyListener
@@ -84,7 +84,9 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog impl
 	{
 		//handling should be in the keyPressed, not keyReleased, to prevent
 		// using "Return" key to be handled as a search key in list, which cause a bug..
-		if (e.keyCode == SWT.CR || e.keyCode == SWT.LF)
+		if (e.keyCode == SWT.CR 
+				|| e.keyCode == SWT.KEYPAD_CR
+				)
 		{
 			processPasteSelectedElement();
 		}
