@@ -1,5 +1,6 @@
 package moreclipboard;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.eclipse.swt.dnd.Clipboard;
@@ -55,6 +56,44 @@ public class Contents
 		
 		updateView();
 	}
+
+	/**
+	 * Adds new string to contents.
+	 * If the string already exists in the contents, it gets moved to the beginning of the list 
+	 * If the contents size exceeds the maximal possible size, last elements got removed
+	 * 
+	 * <p> If a View is assigned to contents, it gets updated.
+	 * 
+	 * @param newString - a string to add to top of the contents 
+	 */
+	public void addStringNoDuplicates(String newString)
+	{
+		if (newString == null)
+		{
+			return;
+		}
+		
+		//check for occurrences of the same sting and remove them
+		Iterator<String> iter = m_list.iterator();
+		while (iter.hasNext())
+		{
+			if (newString.equals(iter.next()))
+			{
+				iter.remove();
+			}
+		}
+		
+		// remove last element(s) if necessary
+		while (m_list.size() >= MAX_ELEMENTS)
+		{
+			m_list.removeLast();
+		}
+		
+		m_list.addFirst(newString);
+		
+		updateView();
+	}
+	
 	
 	/**
 	 * Removes element at index
@@ -201,11 +240,7 @@ public class Contents
 		final String string = (String) clipboard.getContents(TextTransfer.getInstance());
 		if (string != null)
 		{
-			//does not copy same string twice
-			if (m_list.isEmpty() || !m_list.getFirst().equals(string))
-			{
-				addString(string);
-			}
+			addStringNoDuplicates(string);
 		}
 		
 		clipboard.dispose();
