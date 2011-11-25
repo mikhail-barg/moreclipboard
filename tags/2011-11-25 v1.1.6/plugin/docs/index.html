@@ -1,0 +1,45 @@
+<HEAD>
+<title>More Clipboard quick guide</title>
+</HEAD>
+<BODY>
+<H2>More Clipboard quick guide</H2>
+<ol>
+<li><a href="#about">About</a></li>
+<li><a href="#install">Installation</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#usage">Usage</a></li>
+</ol>
+<H2><a name="about">About</a></H2>
+<a href="">More Clipboard</a href="https://sourceforge.net/projects/moreclipboard/"> plugin for <a href="eclipse.org">Eclipse</a>.<br>
+More Clipboard keeps track of the latest entries copied/cut into clipboard buffer and allows quick pasting from the popup list by pressing a hotkey. Inspired by <a href="http://www.bastian-bergerhoff.com/eclipse/features/web/MultiClipboard/toc.html">Multi Clipboard</a> plugin for Eclipse and Visual Assist for MS VS.
+<H2><a name="install">Installation</a></H2>
+It's simple.
+<ul> 
+	<li>Add a link to the update site (<a href="http://moreclipboard.sourceforge.net/updates">http://moreclipboard.sourceforge.net/updates</a>) to the Eclipse Update Site manager.
+		<br><i>Note: If you have previously installed More Clipboard v1.0.1 you will have to manually delete the ECLIPSE_ROOT/plugins/MoreClipboard_1.0.1.jar. Sorry for inconvenience.</i></li>
+	<li>Or just <a href="https://sourceforge.net/projects/moreclipboard/files/">download</a> the lates <i>moreclipboard_X.Y.Z.jar</i> file into your Eclipse /plugins folder.</li>
+</ul> 
+To check if the plugin is installed and working open <i>Window/Show View/Other..</i> dialog; there should be a <i>MoreClipboard</i> folder with a <i>MoreClipboard Contents</i> view.<br>
+<img src="views.png">
+<H2><a name="setup">Setup</a></H2>
+There are some quick settings needed to be done to make MoreClipboard integrate to the system.<br>
+At the moment the plugin registers same key bindings as a regular Cut and Copy commands (at least under Windows). So pressing Ctrl+C after the plugin installation would result in bindings conflict and a popup would appear.<br>
+<img src="popup.png"><br>
+<br>
+So, in the <i>Window/Preferences/General/Keys</i> there are 4 bindings needed to be changed.<br>
+<img src="keys.png"><br>
+<br>
+You should <b>Unbind</b> <i>Ctrl+C</i> and <i>Ctrl+Insert</i> from <i>Copy</i> command and <b>Bind</b> this key combinations to <i>Transparent Copy via MultiClipboard</i>.<br>
+<img src="keys2.png"><br>
+<br>
+And same should be done for <i>Cut</i>command: <i>Ctrl+X</i> and <i>Shift+Delete</i> key combinations are to be bind to <i>Transparent Cut via MultiClipboard</i>.<br>
+<img src="keys3.png"><br>
+<br>
+That's all.
+<H2><a name="usage">Usage</a></H2>
+After the proper setup the normal behavior of copy-paste is not changed, but the <i>Ctrl+Shift+V</i> combination (<i>Paste from MoreClipboard</i>) now provide ability to paste previously copied text:<br>
+<img src="paste.png"><br>
+<br>
+That it all. The contents of the MoreClipboard plugin could be seen at <i>Window/Show View/Other../MoreClipboard/MoreClipboard Contents</i>.
+   
+</BODY>
