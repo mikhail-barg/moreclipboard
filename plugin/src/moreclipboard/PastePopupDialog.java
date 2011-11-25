@@ -4,6 +4,7 @@
 package moreclipboard;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -18,7 +19,8 @@ import org.eclipse.swt.widgets.Shell;
  * The main part of the plugin - the pop-up dialog showing the contents of the plugin and allowing pasting 
  * 
  */
-public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog implements SelectionListener, KeyListener
+public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog 
+							  implements SelectionListener, KeyListener
 {
 	private List m_listView;
 
@@ -37,6 +39,11 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog impl
 		m_listView.addKeyListener(this);
 		m_listView.setItems(Plugin.getInstance().getContents().getElements());
 		m_listView.select(0);
+		
+		if (Settings.USE_FIXED_WIDTH_FONT)
+		{
+			m_listView.setFont(JFaceResources.getTextFont());
+		}
 		return clientArea;
 	}
 

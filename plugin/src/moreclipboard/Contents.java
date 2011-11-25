@@ -21,15 +21,6 @@ import org.eclipse.swt.widgets.Display;
  */
 public class Contents
 {
-	/** maximal number of elements in the plugin*/
-	private static final int MAX_ELEMENTS = 16;
-	
-	/** maximal number of characters displayed in the pop-up dialog*/
-	private static final int MAX_DISPLAYED_STRING_LENGTH = 120;
-	
-	/** maximal number of characters displayed in the pop-up dialog*/
-	private static final String LONG_STRING_TERMINATION = "[...]";	
-	
 	/** the content itself */
 	private final LinkedList<String> m_list = new LinkedList<String>();
 	
@@ -47,7 +38,7 @@ public class Contents
 	public void addString(String newString)
 	{
 		// remove last element(s) if necessary
-		while (m_list.size() >= MAX_ELEMENTS)
+		while (m_list.size() >= Settings.MAX_ELEMENTS)
 		{
 			m_list.removeLast();
 		}
@@ -84,7 +75,7 @@ public class Contents
 		}
 		
 		// remove last element(s) if necessary
-		while (m_list.size() >= MAX_ELEMENTS)
+		while (m_list.size() >= Settings.MAX_ELEMENTS)
 		{
 			m_list.removeLast();
 		}
@@ -158,13 +149,13 @@ public class Contents
 		int i = 0;
 		for (String s : m_list)
 		{
-			if (s.length() <= MAX_DISPLAYED_STRING_LENGTH)
+			if (s.length() <= Settings.MAX_DISPLAYED_STRING_LENGTH)
 			{
 				result[i] = s;
 			}
 			else
 			{
-				result[i] = s.substring(0, MAX_DISPLAYED_STRING_LENGTH) + LONG_STRING_TERMINATION;
+				result[i] = s.substring(0, Settings.MAX_DISPLAYED_STRING_LENGTH) + Settings.LONG_STRING_TERMINATION;
 			}
 			++i;
 		}
