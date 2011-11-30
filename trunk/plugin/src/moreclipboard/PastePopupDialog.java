@@ -26,7 +26,7 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 
 	public PastePopupDialog(Shell parent)
 	{
-		super(parent, SWT.TOOL, true, false, false, false, false, null, null);
+		super(parent, INFOPOPUP_SHELLSTYLE, true, false, false, false, false, null, null);
 	}
 
 	@Override
