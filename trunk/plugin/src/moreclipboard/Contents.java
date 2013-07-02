@@ -245,14 +245,24 @@ public class Contents
 	 */
 	public void setToClipboard()
 	{
-		if (m_list.isEmpty())
+		setToClipboard(0);
+	}
+	
+	/**
+	 * Puts the <em>index</em>-th element of the list to the system clipboard as text
+	 * 
+	 * <p> If the contents is empty or does not have the element with this index, does nothing
+	 */
+	public void setToClipboard(int index)
+	{
+		if (m_list.size() <= index)
 		{
 			return;
 		}
 
 		final Clipboard clipboard = new Clipboard(Display.getCurrent());
 		
-		clipboard.setContents(new Object[]{ m_list.getFirst() }, new Transfer[]{ TextTransfer.getInstance() });
+		clipboard.setContents(new Object[]{ m_list.get(index) }, new Transfer[]{ TextTransfer.getInstance() });
 		
 		clipboard.dispose();
 	}
