@@ -34,6 +34,17 @@
             id="MoreClipboard.commands.moreCut"
             name="%command.name.2">
       </command>
+      <command
+            categoryId="org.eclipse.ui.category.edit"
+            id="MoreClipboard.commands.morePasteIndex"
+            name="%command.name.3">
+         <commandParameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               name="%parameter.name.0"
+               optional="false"
+               values="moreclipboard.PasteIndexParameterValues">
+         </commandParameter>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -48,6 +59,10 @@
       <handler
             class="moreclipboard.CutHandler"
             commandId="MoreClipboard.commands.moreCut">
+      </handler>
+      <handler
+            class="moreclipboard.PasteIndexHandler"
+            commandId="MoreClipboard.commands.morePasteIndex">
       </handler>
    </extension>
    <extension
@@ -87,6 +102,96 @@
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M2+DELETE">
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+1">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="0">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+2">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="1">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+3">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="2">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+4">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="3">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+5">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="4">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+6">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="5">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+7">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="6">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+8">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="7">
+         </parameter>
+      </key>
+      <key
+            commandId="MoreClipboard.commands.morePasteIndex"
+            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+V M3+9">
+         <parameter
+               id="MoreClipboard.commands.morePasteIndexParameter"
+               value="8">
+         </parameter>
       </key>
    </extension>
 
