@@ -107,7 +107,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+1">
+            sequence="M3+V 1">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="0">
@@ -117,7 +117,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+2">
+            sequence="M3+V 2">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="1">
@@ -127,7 +127,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+3">
+            sequence="M3+V 3">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="2">
@@ -137,7 +137,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+4">
+            sequence="M3+V 4">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="3">
@@ -147,7 +147,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+5">
+            sequence="M3+V 5">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="4">
@@ -157,7 +157,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+6">
+            sequence="M3+V 6">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="5">
@@ -167,7 +167,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+7">
+            sequence="M3+V 7">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="6">
@@ -177,7 +177,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+8">
+            sequence="M3+V 8">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="7">
@@ -187,7 +187,7 @@
             commandId="MoreClipboard.commands.morePasteIndex"
             contextId="org.eclipse.ui.contexts.dialogAndWindow"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M3+V M3+9">
+            sequence="M3+V 9">
          <parameter
                id="MoreClipboard.commands.morePasteIndexParameter"
                value="8">
