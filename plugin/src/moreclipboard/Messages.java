@@ -9,6 +9,8 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS
 {
 	private static final String BUNDLE_NAME = "moreclipboard.messages"; //$NON-NLS-1$
+	public static String ContentsView_MoveDown;
+	public static String ContentsView_MoveUp;
 	public static String ContentsView_RemoveAllActionName;
 	public static String ContentsView_RemoveCurrentActionName;
 	static

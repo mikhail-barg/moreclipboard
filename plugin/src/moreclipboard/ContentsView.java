@@ -34,7 +34,6 @@ public class ContentsView extends ViewPart implements SelectionListener
 			removeCurrentItem();
 		}
 	}
-
 	////////////////////////////////////////////////////////////////////	
 	static class ClearContentsAction extends Action
 	{
@@ -52,12 +51,50 @@ public class ContentsView extends ViewPart implements SelectionListener
 			Plugin.getInstance().getContents().clear();
 		}
 	}
+	////////////////////////////////////////////////////////////////////
+	class MoveCurrentElementUpAction extends Action
+	{
+		MoveCurrentElementUpAction()
+		{
+			super(Messages.ContentsView_MoveUp);
+
+			setImageDescriptor(Plugin.getImage("/icons/enabl/up.gif")); //$NON-NLS-1$
+			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/up.gif")); //$NON-NLS-1$
+		}
+
+		@Override
+		public void run()
+		{
+			moveCurrentElementUp();
+		}
+	}
+	////////////////////////////////////////////////////////////////////
+	class MoveCurrentElementDownAction extends Action
+	{
+		MoveCurrentElementDownAction()
+		{
+			super(Messages.ContentsView_MoveDown);
+
+			setImageDescriptor(Plugin.getImage("/icons/enabl/down.gif")); //$NON-NLS-1$
+			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/down.gif")); //$NON-NLS-1$
+		}
+
+		@Override
+		public void run()
+		{
+			moveCurrentElementDown();
+		}
+	}	
 	///////////////////////////////////////////////////////////////////////////////////////
+	
+	
 	
 	
 	private org.eclipse.swt.widgets.List m_listView;
 	private Action m_removeCurAction;
 	private Action m_removeAllAction;
+	private Action m_moveCurUpAction;
+	private Action m_moveCurDownAction;
 
 	@Override
 	public void createPartControl(Composite parent)
@@ -76,8 +113,9 @@ public class ContentsView extends ViewPart implements SelectionListener
 	{
 		m_removeCurAction = new RemoveCurrentItemAction();
 		m_removeAllAction = new ClearContentsAction();
-		updateRemoveCurAction();
-		updateRemoveAllAction();
+		m_moveCurUpAction = new MoveCurrentElementUpAction();
+		m_moveCurDownAction = new MoveCurrentElementDownAction();
+		updateActionsEnabledState();
 	}
 	
 	private void createContextMenu()
@@ -89,6 +127,8 @@ public class ContentsView extends ViewPart implements SelectionListener
 				@Override
 				public void menuAboutToShow(IMenuManager manager)
 				{
+					manager.add(m_moveCurUpAction);
+					manager.add(m_moveCurDownAction);
 					manager.add(m_removeCurAction);
 					manager.add(m_removeAllAction);
 				}
@@ -99,20 +139,21 @@ public class ContentsView extends ViewPart implements SelectionListener
 	private void initToolBar()
 	{
 		IToolBarManager tm = getViewSite().getActionBars().getToolBarManager();
+		tm.add(m_moveCurUpAction);
+		tm.add(m_moveCurDownAction);
 		tm.add(m_removeCurAction);
 		tm.add(m_removeAllAction);
 	}
 
-	private void updateRemoveCurAction()
+	private void updateActionsEnabledState()
 	{
+		boolean hasItems = m_listView.getItemCount() > 0;
 		m_removeCurAction.setEnabled(m_listView.getSelectionIndex() >= 0);
+		m_removeAllAction.setEnabled(hasItems);
+		m_moveCurUpAction.setEnabled(hasItems && m_listView.getSelectionIndex() >= 1);
+		m_moveCurDownAction.setEnabled(hasItems && m_listView.getSelectionIndex() < m_listView.getItemCount() - 1);
 	}
-
-	private void updateRemoveAllAction()
-	{
-		m_removeCurAction.setEnabled(m_listView.getItemCount() > 0);
-	}
-
+	
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
@@ -134,12 +175,11 @@ public class ContentsView extends ViewPart implements SelectionListener
 		String[] preparedElements = new String[elements.length];
 		for (int i = 0; i < elements.length; ++i)
 		{
-			preparedElements[i] = "(" + String.valueOf(i + 1) + "): " + elements[i];  
+			preparedElements[i] = "(" + String.valueOf(i + 1) + "): " + elements[i];   //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		
 		m_listView.setItems(preparedElements);
-		updateRemoveCurAction();
-		updateRemoveAllAction();
+		updateActionsEnabledState();
 	}
 
 	@Override
@@ -161,16 +201,56 @@ public class ContentsView extends ViewPart implements SelectionListener
 	@Override
 	public void widgetSelected(SelectionEvent e)
 	{
-		updateRemoveCurAction();
+		updateActionsEnabledState();
 	}
 
-	public void removeCurrentItem()
+	private void removeCurrentItem()
 	{
-		final int itemIndex = m_listView.getSelectionIndex();
+		int itemIndex = m_listView.getSelectionIndex();
 		if (itemIndex < 0)
 		{
 			return;
 		}
 		Plugin.getInstance().getContents().removeElement(itemIndex);
+		
+		//keep some item selected if possible and update actions state
+		if (itemIndex >= m_listView.getItemCount())
+		{
+			itemIndex = m_listView.getItemCount() - 1;
+		}
+		if (itemIndex >= 0)
+		{
+			m_listView.setSelection(itemIndex);
+			updateActionsEnabledState();
+		}
+	}
+	
+	private void moveCurrentElementUp()
+	{
+		final int itemIndex = m_listView.getSelectionIndex();
+		if (itemIndex < 1)
+		{
+			return;
+		}
+		Plugin.getInstance().getContents().moveElementUp(itemIndex);
+		
+		//keep same item selected and update actions state
+		m_listView.setSelection(itemIndex - 1);
+		updateActionsEnabledState();
+	}
+	
+	private void moveCurrentElementDown()
+	{
+		final int itemIndex = m_listView.getSelectionIndex();
+		if (itemIndex < 0 || itemIndex >= m_listView.getItemCount() - 1)
+		{
+			return;
+		}
+		Plugin.getInstance().getContents().moveElementDown(itemIndex);
+		
+		//keep same item selected and update actions state
+		m_listView.setSelection(itemIndex + 1);
+		updateActionsEnabledState();
 	}
 }
+

@@ -106,6 +106,36 @@ public class Contents
 	}
 
 	
+	public void moveElementUp(int itemIndex) 
+	{
+		if (itemIndex < 1 || itemIndex >= m_list.size())
+		{
+			throw new IndexOutOfBoundsException("Illegal element index on moveUp :" + itemIndex);
+		}
+
+		String curItem = m_list.get(itemIndex);
+		String otherItem = m_list.get(itemIndex - 1);
+		m_list.set(itemIndex - 1, curItem);
+		m_list.set(itemIndex, otherItem);
+		
+		updateView();
+	}	
+	
+	public void moveElementDown(int itemIndex)
+	{
+		if (itemIndex < 0 || itemIndex >= m_list.size() - 1)
+		{
+			throw new IndexOutOfBoundsException("Illegal element index on moveDown :" + itemIndex);
+		}
+
+		String curItem = m_list.get(itemIndex);
+		String otherItem = m_list.get(itemIndex + 1);
+		m_list.set(itemIndex + 1, curItem);
+		m_list.set(itemIndex, otherItem);
+
+		updateView();
+	}
+	
 	/**
 	 * Moves element at index to the contents beginning
 	 * 
@@ -266,4 +296,6 @@ public class Contents
 		
 		clipboard.dispose();
 	}
+
+
 }
