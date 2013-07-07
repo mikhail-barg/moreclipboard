@@ -3,7 +3,7 @@
    <description name="More Clipboard update site" url="http://moreclipboard.sourceforge.net/updates">
       The More Clipboard plugin update site
    </description>
-   <feature url="features/moreclipboard.feature_1.1.7.jar" id="moreclipboard.feature" version="1.1.7">
+   <feature url="features/moreclipboard.feature_1.2.0.jar" id="moreclipboard.feature" version="1.2.0">
       <category name="moreclipboard.category"/>
    </feature>
    <category-def name="moreclipboard.category" label="More Clipboard">
