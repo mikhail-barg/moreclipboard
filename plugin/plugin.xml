@@ -21,21 +21,25 @@
          point="org.eclipse.ui.commands">
       <command
             categoryId="org.eclipse.ui.category.edit"
+            description="%command.description.0"
             id="MoreClipboard.commands.morePaste"
             name="%command.name.0">
       </command>
       <command
             categoryId="org.eclipse.ui.category.edit"
+            description="%command.description.1"
             id="MoreClipboard.commands.moreCopy"
             name="%command.name.1">
       </command>
       <command
             categoryId="org.eclipse.ui.category.edit"
+            description="%command.description.2"
             id="MoreClipboard.commands.moreCut"
             name="%command.name.2">
       </command>
       <command
             categoryId="org.eclipse.ui.category.edit"
+            description="%command.description.3"
             id="MoreClipboard.commands.morePasteIndex"
             name="%command.name.3">
          <commandParameter
@@ -81,25 +85,25 @@
       </key>
       <key
             commandId="MoreClipboard.commands.moreCopy"
-            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            contextId="MoreClipboard.contexts.main"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+C">
       </key>
       <key
             commandId="MoreClipboard.commands.moreCopy"
-            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            contextId="MoreClipboard.contexts.main"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+INSERT">
       </key>
       <key
             commandId="MoreClipboard.commands.moreCut"
-            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            contextId="MoreClipboard.contexts.main"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+X">
       </key>
       <key
             commandId="MoreClipboard.commands.moreCut"
-            contextId="org.eclipse.ui.contexts.dialogAndWindow"
+            contextId="MoreClipboard.contexts.main"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M2+DELETE">
       </key>
@@ -193,6 +197,15 @@
                value="8">
          </parameter>
       </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            description="%context.description.0"
+            id="MoreClipboard.contexts.main"
+            name="%context.name.0"
+            parentId="org.eclipse.ui.contexts.dialogAndWindow">
+      </context>
    </extension>
 
 </plugin>
