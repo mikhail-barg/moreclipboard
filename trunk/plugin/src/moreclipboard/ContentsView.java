@@ -131,7 +131,13 @@ public class ContentsView extends ViewPart implements SelectionListener
 
 	public void setElements(String elements[])
 	{
-		m_listView.setItems(elements);
+		String[] preparedElements = new String[elements.length];
+		for (int i = 0; i < elements.length; ++i)
+		{
+			preparedElements[i] = "(" + String.valueOf(i + 1) + "): " + elements[i];  
+		}
+		
+		m_listView.setItems(preparedElements);
 		updateRemoveCurAction();
 		updateRemoveAllAction();
 	}
