@@ -3,6 +3,8 @@ package moreclipboard;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -79,6 +81,17 @@ public class Plugin extends AbstractUIPlugin
 		{
 			throw new IllegalStateException("Attempt to start the plugin second time!");
 		}
+		
+		PlatformUI.getWorkbench().getDisplay().asyncExec(
+				new Runnable() 
+				{
+					public void run() 
+					{
+						IContextService contextService = ((IContextService) PlatformUI.getWorkbench().getService(IContextService.class));
+						contextService.activateContext("MoreClipboard.contexts.main");
+					}
+				}
+			);
 		
 		m_contents = new Contents();
 	}
