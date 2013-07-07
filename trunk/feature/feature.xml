@@ -2,7 +2,7 @@
 <feature
       id="moreclipboard.feature"
       label="More Clipboard"
-      version="1.1.7"
+      version="1.2.0"
       provider-name="Mikhail Barg"
       plugin="moreclipboard">
 
@@ -11,7 +11,7 @@
    </description>
 
    <license url="http://www.eclipse.org/legal/epl-v10.html">
-      EPL
+      Licensed under Eclipse Public License (http://www.eclipse.org/legal/epl-v10.html)
    </license>
 
    <url>
