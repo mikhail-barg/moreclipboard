@@ -207,5 +207,11 @@
             parentId="org.eclipse.ui.contexts.dialogAndWindow">
       </context>
    </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="moreclipboard.StartupAssurer">
+      </startup>
+   </extension>
 
 </plugin>
