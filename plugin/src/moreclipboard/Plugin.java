@@ -10,25 +10,25 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The main class of the plugin.
- * 
+ *
  * @author Mikhail Barg
- * 
+ *
  */
 public class Plugin extends AbstractUIPlugin
 {
 	/** Singleton instance */
 	private static Plugin INSTANCE;
-	
+
 	/**
 	 * Gets the plugin singleton.
-	 * 
+	 *
 	 * @return the default instance
 	 */
 	static public Plugin getInstance()
 	{
 		return INSTANCE;
 	}
-	
+
 	/**
 	 * Returns an imageDescriptor for given image path
 	 * @param path
@@ -38,8 +38,8 @@ public class Plugin extends AbstractUIPlugin
 	public static ImageDescriptor getImage(String path)
 	{
 		URL url = null;
-		
-		try 
+
+		try
 		{
 			url = getInstance().getBundle().getEntry(path);
 	    }
@@ -49,7 +49,7 @@ public class Plugin extends AbstractUIPlugin
 	    }
 	    return ImageDescriptor.createFromURL(url);
 	}
-	
+
 	/**
 	 * Creates the Plugin singleton
 	 */
@@ -63,7 +63,7 @@ public class Plugin extends AbstractUIPlugin
 
 	/** The instance of the Contents to store the clipboard data */
 	private Contents m_contents;
-	
+
 	/**
 	 * @return current MoreClipboard contents
 	 */
@@ -76,23 +76,24 @@ public class Plugin extends AbstractUIPlugin
 	public void start(BundleContext context) throws Exception
 	{
 		super.start(context);
-		
+
 		if (m_contents != null)
 		{
 			throw new IllegalStateException("Attempt to start the plugin second time!");
 		}
-		
+
 		PlatformUI.getWorkbench().getDisplay().asyncExec(
-				new Runnable() 
+				new Runnable()
 				{
-					public void run() 
+					@Override
+					public void run()
 					{
 						IContextService contextService = ((IContextService) PlatformUI.getWorkbench().getService(IContextService.class));
 						contextService.activateContext("MoreClipboard.contexts.main");
 					}
 				}
 			);
-		
+
 		m_contents = new Contents();
 	}
 }
