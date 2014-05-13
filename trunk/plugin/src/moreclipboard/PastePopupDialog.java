@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package moreclipboard;
 
@@ -12,14 +12,16 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 
 /**
- * The main part of the plugin - the pop-up dialog showing the contents of the plugin and allowing pasting 
- * 
+ * The main part of the plugin - the pop-up dialog showing the contents of the plugin and allowing pasting
+ *
  */
-public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog 
+public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 							  implements SelectionListener, KeyListener
 {
 	private List m_listView;
@@ -39,12 +41,26 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 		m_listView.addKeyListener(this);
 		m_listView.setItems(Plugin.getInstance().getContents().getElements());
 		m_listView.select(0);
-		
+
 		if (Settings.USE_FIXED_WIDTH_FONT)
 		{
 			m_listView.setFont(JFaceResources.getTextFont());
 		}
 		return clientArea;
+	}
+
+	private static void processEvents()
+	{
+		//see https://bugs.eclipse.org/bugs/show_bug.cgi?id=424576
+		//http://sourceforge.net/p/practicalmacro/bugs/17/
+	    Display display = PlatformUI.getWorkbench().getDisplay();
+	    if (display != null)
+	    {
+	        while (display.readAndDispatch())
+	        {
+
+	        }
+	    }
 	}
 
 	private void processPasteSelectedElement()
@@ -54,11 +70,12 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 		{
 			return;
 		}
-		
+
 		Plugin.getInstance().getContents().setCurrentElement(itemIndex);
-		
+
 		this.close();
-		
+		processEvents();	//probably helps to actually assure closing is finished. See links in the method
+
 		try
 		{
 			PasteHandler.executePaste();
@@ -77,7 +94,7 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 		{
 			return;
 		}
-		
+
 		processPasteSelectedElement();
 	}
 
@@ -91,7 +108,7 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 	{
 		//handling should be in the keyPressed, not keyReleased, to prevent
 		// using "Return" key to be handled as a search key in list, which cause a bug..
-		if (e.keyCode == SWT.CR 
+		if (e.keyCode == SWT.CR
 				|| e.keyCode == SWT.KEYPAD_CR
 				)
 		{

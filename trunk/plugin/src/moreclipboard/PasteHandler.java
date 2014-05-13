@@ -17,7 +17,7 @@ public class PasteHandler extends AbstractHandler
 {
 	/** The instance of the dialog shown*/
 	private PastePopupDialog m_popupDialog;
-	
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
 	{
@@ -30,7 +30,7 @@ public class PasteHandler extends AbstractHandler
 
 		// copy contents from clipboard - in case there was something else in the clipboard, e.g. copied from the system buffer.
 		Plugin.getInstance().getContents().getFromClipboard();
-		
+
 		//create and open a new dialog
 		m_popupDialog = new PastePopupDialog(Display.getCurrent().getActiveShell());
 		m_popupDialog.open();
@@ -38,9 +38,8 @@ public class PasteHandler extends AbstractHandler
 		return null;
 	}
 
-
 	/**
-	 * Performs an actual paste command: takes the first element from the Contents, 
+	 * Performs an actual paste command: takes the first element from the Contents,
 	 *  moves it to the system clipboard and tries to issue a regular Paste command
 	 * @throws ExecutionException if the underlying API call fails
 	 */
@@ -48,7 +47,7 @@ public class PasteHandler extends AbstractHandler
 	{
 		// move contents to clipboard
 		Plugin.getInstance().getContents().setToClipboard();
-		
+
 		try
 		{
 			// run regular paste command
