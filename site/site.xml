@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="More Clipboard update site" url="http://moreclipboard.sourceforge.net/updates">
+   <description name="More Clipboard update site" url="https://raw.github.com/mikhail-barg/moreclipboard/master/site">
       The More Clipboard plugin update site
    </description>
    <feature url="features/moreclipboard.feature_1.2.2.jar" id="moreclipboard.feature" version="1.2.2">
