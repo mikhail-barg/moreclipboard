@@ -24,9 +24,30 @@ import org.eclipse.ui.PlatformUI;
 public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 							  implements SelectionListener, KeyListener
 {
+	private static PastePopupDialog s_instance = null;
+	
+	static PastePopupDialog getInstance() 
+	{
+		return s_instance;
+	}
+	
+	static void CreateInstance()
+	{
+		if (s_instance != null)
+		{
+		}
+		else
+		{
+			s_instance = new PastePopupDialog(Display.getCurrent().getActiveShell());
+			s_instance.open();
+		}
+		
+	}
+	
+	
 	private List m_listView;
 
-	public PastePopupDialog(Shell parent)
+	private PastePopupDialog(Shell parent)
 	{
 		super(parent, INFOPOPUP_SHELLSTYLE, true, false, false, false, false, null, null);
 	}
@@ -119,5 +140,30 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
+	}
+	
+	@Override
+	public boolean close() 
+	{
+		s_instance = null;
+		return super.close();
+	}
+	
+	void MoveSelectionToNextItem()
+	{
+		if (m_listView.getItemCount() <= 0)
+		{
+			return;
+		}
+		int selectedIndex = m_listView.getSelectionIndex();
+		if (selectedIndex < 0)
+		{
+			selectedIndex = 0;
+		}
+		else
+		{
+			selectedIndex = (selectedIndex + 1) % m_listView.getItemCount();
+		}
+		m_listView.setSelection(selectedIndex);
 	}
 }

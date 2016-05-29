@@ -6,7 +6,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 
@@ -15,26 +14,22 @@ import org.eclipse.ui.handlers.IHandlerService;
  */
 public class PasteHandler extends AbstractHandler
 {
-	/** The instance of the dialog shown*/
-	private PastePopupDialog m_popupDialog;
-
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
 	{
-		//close the old dialog if it was shown
-		if (m_popupDialog != null)
+		PastePopupDialog dialog = PastePopupDialog.getInstance();
+		if (dialog != null)
 		{
-			m_popupDialog.close();
-			m_popupDialog = null;
+			dialog.MoveSelectionToNextItem();
+			return null;
 		}
 
 		// copy contents from clipboard - in case there was something else in the clipboard, e.g. copied from the system buffer.
 		Plugin.getInstance().getContents().getFromClipboard();
 
 		//create and open a new dialog
-		m_popupDialog = new PastePopupDialog(Display.getCurrent().getActiveShell());
-		m_popupDialog.open();
-
+		PastePopupDialog.CreateInstance();
+		
 		return null;
 	}
 
@@ -47,7 +42,7 @@ public class PasteHandler extends AbstractHandler
 	{
 		// move contents to clipboard
 		Plugin.getInstance().getContents().setToClipboard();
-
+		
 		try
 		{
 			// run regular paste command
