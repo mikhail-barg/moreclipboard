@@ -131,6 +131,7 @@ public class PastePopupDialog extends org.eclipse.jface.dialogs.PopupDialog
 		// using "Return" key to be handled as a search key in list, which cause a bug..
 		if (e.keyCode == SWT.CR
 				|| e.keyCode == SWT.KEYPAD_CR
+				|| e.keyCode == SWT.SPACE
 				)
 		{
 			processPasteSelectedElement();
