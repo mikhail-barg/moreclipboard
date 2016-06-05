@@ -1,14 +1,26 @@
 package moreclipboard;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.contexts.IContextActivation;
+import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -17,6 +29,7 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class ContentsView extends ViewPart implements SelectionListener
 {
+	/*
 	////////////////////////////////////////////////////////////////////
 	class RemoveCurrentItemAction extends Action
 	{
@@ -26,6 +39,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 
 			setImageDescriptor(Plugin.getImage("/icons/enabl/rem.gif")); //$NON-NLS-1$
 			setDisabledImageDescriptor(Plugin.getImage("/icons/disabl/rem.gif")); //$NON-NLS-1$
+			setActionDefinitionId("MoreClipboard.commands.ContentsView.deleteCurrent");  //$NON-NLS-1$
 		}
 
 		@Override
@@ -87,35 +101,118 @@ public class ContentsView extends ViewPart implements SelectionListener
 	}	
 	///////////////////////////////////////////////////////////////////////////////////////
 	
-	
+	*/
 	
 	
 	private org.eclipse.swt.widgets.List m_listView;
+	/*
 	private Action m_removeCurAction;
 	private Action m_removeAllAction;
 	private Action m_moveCurUpAction;
 	private Action m_moveCurDownAction;
+	*/
+	private IContextActivation m_contextActivation;
+	private IHandler m_removeCurHandler;
+	private IHandler m_removeAllHandler;
+	private IHandler m_moveUpHandler;
+	private IHandler m_moveDownHandler;
 
 	@Override
 	public void createPartControl(Composite parent)
 	{
+		IContextService contextService = (IContextService)getSite().getService(IContextService.class);
+		m_contextActivation = contextService.activateContext("MoreClipboard.contexts.View");  //$NON-NLS-1$
+		
 		m_listView = new org.eclipse.swt.widgets.List(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 		m_listView.addSelectionListener(this);
+		
+		IHandlerService handlerService = (IHandlerService)getSite().getService(IHandlerService.class); 
+		m_removeCurHandler = new AbstractHandler() {
+			@Override
+			public Object execute(ExecutionEvent event) throws ExecutionException 
+			{
+				removeCurrentItem();
+				return null;
+			}
+			@Override
+			public boolean isEnabled() 
+			{
+				return m_listView.getSelectionIndex() >= 0;
+			}
+		};
+		m_removeAllHandler = new AbstractHandler() {
+			@Override
+			public Object execute(ExecutionEvent event) throws ExecutionException 
+			{
+				Plugin.getInstance().getContents().clear();
+				return null;
+			}
+			@Override
+			public boolean isEnabled() 
+			{
+				return m_listView.getItemCount() > 0;
+			}
+		};
+		m_moveUpHandler = new AbstractHandler() {
+			@Override
+			public Object execute(ExecutionEvent event) throws ExecutionException 
+			{
+				moveCurrentElementUp();
+				return null;
+			}
+			@Override
+			public boolean isEnabled() 
+			{
+				return m_listView.getSelectionIndex() >= 1;
+			}
+		};
+		m_moveDownHandler = new AbstractHandler() {
+			@Override
+			public Object execute(ExecutionEvent event) throws ExecutionException 
+			{
+				moveCurrentElementDown();
+				return null;
+			}
+			@Override
+			public boolean isEnabled() 
+			{
+				return m_listView.getSelectionIndex() < m_listView.getItemCount() - 1;
+			}
+		};
+		
+		
+		handlerService.activateHandler("MoreClipboard.commands.ContentsView.deleteCurrent", m_removeCurHandler); 
+		handlerService.activateHandler("MoreClipboard.commands.ContentsView.deleteAll", m_removeAllHandler);
+		handlerService.activateHandler("MoreClipboard.commands.ContentsView.moveUp", m_moveUpHandler);
+		handlerService.activateHandler("MoreClipboard.commands.ContentsView.moveDown", m_moveDownHandler);
+		
+		/*
 		createActions();
 		createContextMenu();
 		initToolBar();
+		*/
 
+		MenuManager manager = new MenuManager();
+		Menu contextMenu = manager.createContextMenu(m_listView);
+		m_listView.setMenu(contextMenu);
+		getSite().registerContextMenu(manager, new ListViewer(m_listView));
+		
 		Contents contents = Plugin.getInstance().getContents();
 		contents.registerView(this);
 	}
-
+	
+	/*
 	private void createActions()
 	{
 		m_removeCurAction = new RemoveCurrentItemAction();
 		m_removeAllAction = new ClearContentsAction();
 		m_moveCurUpAction = new MoveCurrentElementUpAction();
 		m_moveCurDownAction = new MoveCurrentElementDownAction();
+		
+		
+		
 		updateActionsEnabledState();
+		
 	}
 	
 	private void createContextMenu()
@@ -153,6 +250,8 @@ public class ContentsView extends ViewPart implements SelectionListener
 		m_moveCurUpAction.setEnabled(hasItems && m_listView.getSelectionIndex() >= 1);
 		m_moveCurDownAction.setEnabled(hasItems && m_listView.getSelectionIndex() < m_listView.getItemCount() - 1);
 	}
+	*/
+	
 	
 	/**
 	 * Passing the focus request to the viewer's control.
@@ -166,6 +265,14 @@ public class ContentsView extends ViewPart implements SelectionListener
 	@Override
 	public void dispose()
 	{
+		m_removeCurHandler.dispose();
+		m_removeAllHandler.dispose();
+		m_moveUpHandler.dispose();
+		m_moveDownHandler.dispose();
+		
+		IContextService contextService = (IContextService)getSite().getService(IContextService.class);
+		contextService.deactivateContext(m_contextActivation);
+		
 		Plugin.getInstance().getContents().removeView(this);
 		super.dispose();
 	}
@@ -179,7 +286,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 		}
 		
 		m_listView.setItems(preparedElements);
-		updateActionsEnabledState();
+		//updateActionsEnabledState();
 	}
 
 	@Override
@@ -201,7 +308,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 	@Override
 	public void widgetSelected(SelectionEvent e)
 	{
-		updateActionsEnabledState();
+		//updateActionsEnabledState();
 	}
 
 	private void removeCurrentItem()
@@ -221,7 +328,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 		if (itemIndex >= 0)
 		{
 			m_listView.setSelection(itemIndex);
-			updateActionsEnabledState();
+			//updateActionsEnabledState();
 		}
 	}
 	
@@ -236,7 +343,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 		
 		//keep same item selected and update actions state
 		m_listView.setSelection(itemIndex - 1);
-		updateActionsEnabledState();
+		//updateActionsEnabledState();
 	}
 	
 	private void moveCurrentElementDown()
@@ -250,7 +357,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 		
 		//keep same item selected and update actions state
 		m_listView.setSelection(itemIndex + 1);
-		updateActionsEnabledState();
+		//updateActionsEnabledState();
 	}
 }
 

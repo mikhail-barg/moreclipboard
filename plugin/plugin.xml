@@ -49,6 +49,34 @@
                values="moreclipboard.PasteIndexParameterValues">
          </commandParameter>
       </command>
+      <category
+            id="moreclipboard.categories.view"
+            name="MoreClipboard View">
+      </category>
+      <command
+            categoryId="moreclipboard.categories.view"
+            description="Remove current item from the MoreClipboard&apos;s Contents View"
+            id="MoreClipboard.commands.ContentsView.deleteCurrent"
+            name="MoreClipboard ContentsView RemoveCurrent">
+      </command>
+      <command
+            categoryId="moreclipboard.categories.view"
+            description="Remove all items from MoreClipboard&apos;s Contents View"
+            id="MoreClipboard.commands.ContentsView.deleteAll"
+            name="MoreClipboard ContentsView Clear">
+      </command>
+      <command
+            categoryId="moreclipboard.categories.view"
+            description="Move current item up in MoreClipboard ContentsView"
+            id="MoreClipboard.commands.ContentsView.moveUp"
+            name="MoreClipboard ContentsView move item up">
+      </command>
+      <command
+            categoryId="moreclipboard.categories.view"
+            description="Move current item down in MoreClipboard ContentsView"
+            id="MoreClipboard.commands.ContentsView.moveDown"
+            name="MoreClipboard ContentsView move item down">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -197,6 +225,12 @@
                value="8">
          </parameter>
       </key>
+      <key
+            commandId="MoreClipboard.commands.ContentsView.deleteCurrent"
+            contextId="MoreClipboard.contexts.View"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="DEL">
+      </key>
    </extension>
    <extension
          point="org.eclipse.ui.contexts">
@@ -206,12 +240,83 @@
             name="%context.name.0"
             parentId="org.eclipse.ui.contexts.dialogAndWindow">
       </context>
+      <context
+            id="MoreClipboard.contexts.View"
+            name="In MoreClipboard Contents View"
+            parentId="org.eclipse.ui.contexts.window">
+      </context>
    </extension>
    <extension
          point="org.eclipse.ui.startup">
       <startup
             class="moreclipboard.StartupAssurer">
       </startup>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="toolbar:MoreClipboard.view">
+         <command
+               commandId="MoreClipboard.commands.ContentsView.moveUp"
+               disabledIcon="icons/disabl/up.gif"
+               icon="icons/enabl/up.gif"
+               label="Move Up"
+               style="push"
+               tooltip="Move Up">
+         </command>
+         <command
+               commandId="MoreClipboard.commands.ContentsView.moveDown"
+               disabledIcon="icons/disabl/down.gif"
+               icon="icons/enabl/down.gif"
+               label="Move Down"
+               style="push"
+               tooltip="Move Down">
+         </command>
+         <command
+               commandId="MoreClipboard.commands.ContentsView.deleteCurrent"
+               disabledIcon="icons/disabl/rem.gif"
+               icon="icons/enabl/rem.gif"
+               label="Remove Selected"
+               style="push"
+               tooltip="Remove Selected">
+         </command>
+         <command
+               commandId="MoreClipboard.commands.ContentsView.deleteAll"
+               disabledIcon="icons/disabl/remall.gif"
+               icon="icons/enabl/remall.gif"
+               label="Clear All"
+               style="push"
+               tooltip="Clear All">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:MoreClipboard.view">
+         <command
+               commandId="MoreClipboard.commands.ContentsView.moveUp"
+               disabledIcon="icons/disabl/up.gif"
+               icon="icons/enabl/up.gif"
+               label="Move Up"
+               style="push"
+               tooltip="Move Up">
+         </command>
+         <command
+               commandId="MoreClipboard.commands.ContentsView.moveDown"
+               disabledIcon="icons/disabl/down.gif"
+               icon="icons/enabl/down.gif"
+               label="Move Down"
+               style="push"
+               tooltip="Move Down">
+         </command>
+         <command
+               commandId="MoreClipboard.commands.ContentsView.deleteCurrent"
+               disabledIcon="icons/disabl/rem.gif"
+               icon="icons/enabl/rem.gif"
+               label="Remove"
+               style="push">
+         </command>
+      </menuContribution>
    </extension>
 
 </plugin>
