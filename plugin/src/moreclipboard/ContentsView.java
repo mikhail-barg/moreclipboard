@@ -28,6 +28,9 @@ import org.eclipse.ui.services.IEvaluationService;
 /**
  * A clipboard contents View
  * 
+ * Had to do a dangerous mix of Commands/Handlers AND Actions, 
+ * because for Commands/Handlers if declared via menus contributions extension point, 
+ * enablement state does not work in E4 (while works OK in E3)   
  */
 public class ContentsView extends ViewPart implements SelectionListener
 {
@@ -183,7 +186,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 			@Override
 			public void setEnabled(Object evaluationContext) 
 			{
-				setBaseEnabled(m_listView.getSelectionIndex() < m_listView.getItemCount() - 1);
+				setBaseEnabled(m_listView.getSelectionIndex() >= 0 && m_listView.getSelectionIndex() < m_listView.getItemCount() - 1);
 			}
 		};
 		handlerService.activateHandler(DELETE_CURRENT_COMMAND_ID, m_removeCurHandler); 
@@ -239,15 +242,15 @@ public class ContentsView extends ViewPart implements SelectionListener
 
 	private void updateActionsEnabledState()
 	{
-		m_removeCurAction.setEnabled(m_listView.getSelectionIndex() >= 0);
-		m_removeAllAction.setEnabled(m_listView.getItemCount() > 0);
-		m_moveCurUpAction.setEnabled(m_listView.getSelectionIndex() >= 1);
-		m_moveCurDownAction.setEnabled(m_listView.getSelectionIndex() >= 0 && m_listView.getSelectionIndex() < m_listView.getItemCount() - 1);
-
 		m_removeCurHandler.setEnabled(null);
 		m_removeAllHandler.setEnabled(null);
 		m_moveUpHandler.setEnabled(null);
 		m_moveDownHandler.setEnabled(null);
+		
+		m_removeCurAction.setEnabled(m_removeCurHandler.isEnabled());
+		m_removeAllAction.setEnabled(m_removeAllHandler.isEnabled());
+		m_moveCurUpAction.setEnabled(m_moveUpHandler.isEnabled());
+		m_moveCurDownAction.setEnabled(m_moveDownHandler.isEnabled());
 	}
 	
 	
