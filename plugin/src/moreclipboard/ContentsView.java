@@ -15,6 +15,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
@@ -33,6 +34,8 @@ public class ContentsView extends ViewPart implements SelectionListener
 	private static final String DELETE_ALL_COMMAND_ID = "MoreClipboard.commands.ContentsView.deleteAll"; //$NON-NLS-1$
 	private static final String MOVE_UP_COMMAND_ID = "MoreClipboard.commands.ContentsView.moveUp"; //$NON-NLS-1$
 	private static final String MOVE_DOWN_COMMAND_ID = "MoreClipboard.commands.ContentsView.moveDown"; //$NON-NLS-1$
+	
+	private static final String PASTE_COMMAND_ID = IWorkbenchCommandConstants.EDIT_PASTE;
 	
 	////////////////////////////////////////////////////////////////////
 	class RemoveCurrentItemAction extends Action
@@ -121,6 +124,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 	private IHandler2 m_removeAllHandler;
 	private IHandler2 m_moveUpHandler;
 	private IHandler2 m_moveDownHandler;
+	private IHandler2 m_pasteHereHandler;
 
 	@Override
 	public void createPartControl(Composite parent)
@@ -184,10 +188,21 @@ public class ContentsView extends ViewPart implements SelectionListener
 				setBaseEnabled(m_listView.getSelectionIndex() >= 0 && m_listView.getSelectionIndex() < m_listView.getItemCount() - 1);
 			}
 		};
+		
+		m_pasteHereHandler = new AbstractHandler() {
+			@Override
+			public Object execute(ExecutionEvent event) throws ExecutionException 
+			{
+				AddItemFromClipboard();
+				return null;
+			}
+		};
 		handlerService.activateHandler(DELETE_CURRENT_COMMAND_ID, m_removeCurHandler); 
 		handlerService.activateHandler(DELETE_ALL_COMMAND_ID, m_removeAllHandler);
 		handlerService.activateHandler(MOVE_UP_COMMAND_ID, m_moveUpHandler);
 		handlerService.activateHandler(MOVE_DOWN_COMMAND_ID, m_moveDownHandler);
+		
+		handlerService.activateHandler(PASTE_COMMAND_ID, m_pasteHereHandler);
 		
 		createActions();
 		createContextMenu();
@@ -265,6 +280,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 		m_removeAllHandler.dispose();
 		m_moveUpHandler.dispose();
 		m_moveDownHandler.dispose();
+		m_pasteHereHandler.dispose();
 		
 		IContextService contextService = (IContextService)getSite().getService(IContextService.class);
 		contextService.deactivateContext(m_contextActivation);
@@ -354,6 +370,11 @@ public class ContentsView extends ViewPart implements SelectionListener
 		//keep same item selected and update actions state
 		m_listView.setSelection(itemIndex + 1);
 		updateActionsEnabledState();
+	}
+	
+	private void AddItemFromClipboard() 
+	{
+		Plugin.getInstance().getContents().getFromClipboard();
 	}
 }
 
