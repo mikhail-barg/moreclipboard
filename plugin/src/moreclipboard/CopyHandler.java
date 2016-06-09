@@ -6,6 +6,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 
@@ -24,7 +25,7 @@ public class CopyHandler extends AbstractHandler
 			
 			// execute default copy command
 			final IHandlerService handlerService = (IHandlerService) PlatformUI.getWorkbench().getService(IHandlerService.class);
-			final Object result = handlerService.executeCommand("org.eclipse.ui.edit.copy", null);
+			final Object result = handlerService.executeCommand(IWorkbenchCommandConstants.EDIT_COPY, null);
 
 			// copy contents from clipboard to the Contents instance 
 			Plugin.getInstance().getContents().getFromClipboard();

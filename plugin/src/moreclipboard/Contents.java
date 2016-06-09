@@ -285,7 +285,7 @@ public class Contents
 	 */
 	public void setToClipboard(int index)
 	{
-		if (m_list.size() <= index)
+		if (m_list.size() <= index || index < 0)
 		{
 			return;
 		}

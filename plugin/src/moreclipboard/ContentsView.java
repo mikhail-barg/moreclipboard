@@ -36,6 +36,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 	private static final String MOVE_DOWN_COMMAND_ID = "MoreClipboard.commands.ContentsView.moveDown"; //$NON-NLS-1$
 	
 	private static final String PASTE_COMMAND_ID = IWorkbenchCommandConstants.EDIT_PASTE;
+	private static final String COPY_COMMAND_ID = IWorkbenchCommandConstants.EDIT_COPY;
 	
 	////////////////////////////////////////////////////////////////////
 	class RemoveCurrentItemAction extends Action
@@ -125,6 +126,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 	private IHandler2 m_moveUpHandler;
 	private IHandler2 m_moveDownHandler;
 	private IHandler2 m_pasteHereHandler;
+	private IHandler2 m_copyCurrentHandler;
 
 	@Override
 	public void createPartControl(Composite parent)
@@ -197,12 +199,24 @@ public class ContentsView extends ViewPart implements SelectionListener
 				return null;
 			}
 		};
+		m_copyCurrentHandler = new AbstractHandler() {
+			@Override
+			public Object execute(ExecutionEvent event) throws ExecutionException 
+			{
+				CopyCurrentToClipboard();
+				return null;
+			}
+		};
+		
+		
 		handlerService.activateHandler(DELETE_CURRENT_COMMAND_ID, m_removeCurHandler); 
 		handlerService.activateHandler(DELETE_ALL_COMMAND_ID, m_removeAllHandler);
 		handlerService.activateHandler(MOVE_UP_COMMAND_ID, m_moveUpHandler);
 		handlerService.activateHandler(MOVE_DOWN_COMMAND_ID, m_moveDownHandler);
 		
 		handlerService.activateHandler(PASTE_COMMAND_ID, m_pasteHereHandler);
+		handlerService.activateHandler(COPY_COMMAND_ID, m_copyCurrentHandler);
+		handlerService.activateHandler("MoreClipboard.commands.moreCopy", m_copyCurrentHandler);
 		
 		createActions();
 		createContextMenu();
@@ -281,6 +295,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 		m_moveUpHandler.dispose();
 		m_moveDownHandler.dispose();
 		m_pasteHereHandler.dispose();
+		m_copyCurrentHandler.dispose();
 		
 		IContextService contextService = (IContextService)getSite().getService(IContextService.class);
 		contextService.deactivateContext(m_contextActivation);
@@ -376,5 +391,11 @@ public class ContentsView extends ViewPart implements SelectionListener
 	{
 		Plugin.getInstance().getContents().getFromClipboard();
 	}
+	
+	private void CopyCurrentToClipboard() 
+	{
+		Plugin.getInstance().getContents().setToClipboard(m_listView.getSelectionIndex());
+	}
+
 }
 
