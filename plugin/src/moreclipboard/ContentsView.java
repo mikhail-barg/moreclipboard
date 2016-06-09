@@ -36,7 +36,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 	private static final String MOVE_DOWN_COMMAND_ID = "MoreClipboard.commands.ContentsView.moveDown"; //$NON-NLS-1$
 	
 	private static final String PASTE_COMMAND_ID = IWorkbenchCommandConstants.EDIT_PASTE;
-	private static final String COPY_COMMAND_ID = IWorkbenchCommandConstants.EDIT_COPY;
+	//private static final String COPY_COMMAND_ID = IWorkbenchCommandConstants.EDIT_COPY;
 	
 	////////////////////////////////////////////////////////////////////
 	class RemoveCurrentItemAction extends Action
@@ -215,7 +215,7 @@ public class ContentsView extends ViewPart implements SelectionListener
 		handlerService.activateHandler(MOVE_DOWN_COMMAND_ID, m_moveDownHandler);
 		
 		handlerService.activateHandler(PASTE_COMMAND_ID, m_pasteHereHandler);
-		handlerService.activateHandler(COPY_COMMAND_ID, m_copyCurrentHandler);
+		//handlerService.activateHandler(COPY_COMMAND_ID, m_copyCurrentHandler);
 		handlerService.activateHandler("MoreClipboard.commands.moreCopy", m_copyCurrentHandler);
 		
 		createActions();
