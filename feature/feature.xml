@@ -15,7 +15,7 @@
    </license>
 
    <url>
-      <update label="More Clipboard update site" url="http://moreclipboard.sourceforge.net/updates"/>
+      <update label="More Clipboard update site" url="https://raw.github.com/mikhail-barg/moreclipboard/master/site"/>
    </url>
 
    <requires>
