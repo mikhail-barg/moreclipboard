@@ -51,25 +51,25 @@
       </command>
       <category
             id="moreclipboard.categories.view"
-            name="MoreClipboard View">
+            name="%command_category.name">
       </category>
       <command
             categoryId="moreclipboard.categories.view"
-            description="Remove selected items from the MoreClipboard&apos;s Contents View"
+            description="%command.description"
             id="MoreClipboard.commands.ContentsView.deleteSelected"
-            name="MoreClipboard ContentsView RemoveSelected">
+            name="%command.name">
       </command>
       <command
             categoryId="moreclipboard.categories.view"
-            description="Move current item up in MoreClipboard ContentsView"
+            description="%command.description.0"
             id="MoreClipboard.commands.ContentsView.moveUp"
-            name="MoreClipboard ContentsView move item up">
+            name="%command.name.4">
       </command>
       <command
             categoryId="moreclipboard.categories.view"
-            description="Move current item down in MoreClipboard ContentsView"
+            description="%command.description.4"
             id="MoreClipboard.commands.ContentsView.moveDown"
-            name="MoreClipboard ContentsView move item down">
+            name="%command.name.5">
       </command>
    </extension>
    <extension
@@ -236,7 +236,7 @@
       </context>
       <context
             id="MoreClipboard.contexts.View"
-            name="In MoreClipboard Contents View"
+            name="%context.name"
             parentId="org.eclipse.ui.contexts.window">
       </context>
    </extension>

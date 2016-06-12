@@ -6,6 +6,9 @@
    <feature url="features/moreclipboard.feature_1.3.0.jar" id="moreclipboard.feature" version="1.3.0">
       <category name="moreclipboard.category"/>
    </feature>
+   <feature url="features/moreclipboard.feature_1.4.0.jar" id="moreclipboard.feature" version="1.4.0">
+      <category name="moreclipboard.category"/>
+   </feature>
    <category-def name="moreclipboard.category" label="More Clipboard">
       <description>
          More Clipboard keeps track of the latest entries copied/cut into clipboard buffer and allows quick pasting from the popup list by pressing a hotkey.
