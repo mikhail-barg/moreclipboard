@@ -55,15 +55,9 @@
       </category>
       <command
             categoryId="moreclipboard.categories.view"
-            description="Remove current item from the MoreClipboard&apos;s Contents View"
-            id="MoreClipboard.commands.ContentsView.deleteCurrent"
-            name="MoreClipboard ContentsView RemoveCurrent">
-      </command>
-      <command
-            categoryId="moreclipboard.categories.view"
-            description="Remove all items from MoreClipboard&apos;s Contents View"
-            id="MoreClipboard.commands.ContentsView.deleteAll"
-            name="MoreClipboard ContentsView Clear">
+            description="Remove selected items from the MoreClipboard&apos;s Contents View"
+            id="MoreClipboard.commands.ContentsView.deleteSelected"
+            name="MoreClipboard ContentsView RemoveSelected">
       </command>
       <command
             categoryId="moreclipboard.categories.view"
@@ -226,7 +220,7 @@
          </parameter>
       </key>
       <key
-            commandId="MoreClipboard.commands.ContentsView.deleteCurrent"
+            commandId="MoreClipboard.commands.ContentsView.deleteSelected"
             contextId="MoreClipboard.contexts.View"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="DEL">

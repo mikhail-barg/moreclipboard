@@ -12,7 +12,7 @@ public class Messages extends NLS
 	public static String ContentsView_MoveDown;
 	public static String ContentsView_MoveUp;
 	public static String ContentsView_RemoveAllActionName;
-	public static String ContentsView_RemoveCurrentActionName;
+	public static String ContentsView_RemoveSelectedActionName;
 	static
 	{
 		// initialize resource bundle
