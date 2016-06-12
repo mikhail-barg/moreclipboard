@@ -2,7 +2,7 @@
 <feature
       id="moreclipboard.feature"
       label="More Clipboard"
-      version="1.4.0"
+      version="1.4.1"
       provider-name="Mikhail Barg"
       plugin="moreclipboard">
 
