@@ -16,6 +16,7 @@
 
    <url>
       <update label="More Clipboard update site" url="https://raw.github.com/mikhail-barg/moreclipboard/master/site"/>
+      <discovery label="More Clipboard update site at GitHub" url="https://raw.github.com/mikhail-barg/moreclipboard/master/site"/>
    </url>
 
    <requires>
