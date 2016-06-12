@@ -1,5 +1,6 @@
 package moreclipboard;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -102,6 +103,21 @@ public class Contents
 
 		m_list.remove(itemIndex);
 		
+		updateView();
+	}
+	
+	public void removeElements(int[] itemIndices)
+	{
+		if (itemIndices.length == 0)
+		{
+			return;
+		}
+
+		Arrays.sort(itemIndices);
+		for (int i = itemIndices.length - 1; i >= 0; --i)
+		{
+			m_list.remove(itemIndices[i]);
+		}
 		updateView();
 	}
 
