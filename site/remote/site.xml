@@ -3,7 +3,7 @@
    <description name="More Clipboard update site" url="https://raw.github.com/mikhail-barg/moreclipboard/master/site">
       The More Clipboard plugin update site
    </description>
-   <feature url="http://downloads.sourceforge.net/moreclipboard/moreclipboard.feature_1.3.0.jar" id="moreclipboard.feature" version="1.3.0">
+   <feature url="http://downloads.sourceforge.net/moreclipboard/moreclipboard.feature_1.4.1.jar" id="moreclipboard.feature" version="1.4.1">
       <category name="moreclipboard.category"/>
    </feature>
    <category-def name="moreclipboard.category" label="More Clipboard">
@@ -12,7 +12,7 @@
       </description>
    </category-def>
    
-   <archive path="plugins/moreclipboard_1.3.0.jar" 
-   		url="http://downloads.sourceforge.net/moreclipboard/moreclipboard_1.3.0.jar"/>
+   <archive path="plugins/moreclipboard_1.4.1.jar" 
+   		url="http://downloads.sourceforge.net/moreclipboard/moreclipboard_1.4.1.jar"/>
 
 </site>

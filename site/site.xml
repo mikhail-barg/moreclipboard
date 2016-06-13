@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="More Clipboard update site" url="https://raw.github.com/mikhail-barg/moreclipboard/master/site">
+   <description name="More Clipboard update site" url="http://raw.github.com/mikhail-barg/moreclipboard/master/site">
       The More Clipboard plugin update site
    </description>
-   <feature url="features/moreclipboard.feature_1.4.1.jar" id="moreclipboard.feature" version="1.4.1">
+   <feature url="features/moreclipboard.feature_1.4.2.jar" id="moreclipboard.feature" version="1.4.2">
       <category name="moreclipboard.category"/>
    </feature>
    <category-def name="moreclipboard.category" label="More Clipboard">
