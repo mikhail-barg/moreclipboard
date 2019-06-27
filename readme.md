@@ -9,6 +9,7 @@ It's simple:
 <a href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=857" class="drag" title="Drag to your running Eclipse workspace to install More Clipboard">
 <img class="img-responsive" src="https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png" alt="Drag to your running Eclipse workspace to install More Clipboard" />
 </a>
+
 * OR find the plugin by name in Eclipse Marketplace Client (```Help/Eclipse Marketplace..```)
 * OR add the link to [update site](https://raw.github.com/mikhail-barg/moreclipboard/master/site) to your Eclipse Update Site manager.
 * OR just download the latest moreclipboard_X.Y.Z.jar file from Releases into your Eclipse ```/plugins``` folder
