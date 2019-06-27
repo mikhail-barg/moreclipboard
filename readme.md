@@ -21,11 +21,11 @@ To check if the plugin is installed and working open ```Window/Show View/Other..
 # Setup
 
 Since v1.2 no additional septup is needed! Plugin automatically adds bindings from new context. The bindings are as follows:
-* Regular ```Ctrl+C``` (```Ctrl+Insert```) and ```Ctrl+X``` (```Shift-Delete```) - just continue working as usual Copy and Cut commands, but also store cppied text in the internal buffer. You may see it's contents in already mentioned MoreClipoard View, but it's not required.
+* Regular ```Ctrl+C``` (```Ctrl+Insert```) and ```Ctrl+X``` (```Shift-Delete```) - just continue working as usual Copy and Cut commands, but also store copied text in the internal buffer. You may see its contents in already mentioned MoreClipoard View, but it's not required.
 * New ```Ctrl+Shift+V``` (```Ctrl+Shift+Insert```) bindings provide ability to paste previously copied text by opening a popup window:
 
 ![Paste from MoreClipboard window](plugin/docs/paste.png)
 
 * You may also use combinations ```Alt+V+1``` .. ```Alt+V+9``` to paste items from MoreClipboard by index.
 
-As usual with Eclipse you may change key bindings via ```Window/Preferences/General/Keys```
+As usual with Eclipse you may change key bindings via ```Window/Preferences/General/Keys```.
